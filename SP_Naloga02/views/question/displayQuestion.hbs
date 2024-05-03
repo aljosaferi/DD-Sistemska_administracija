@@ -1,0 +1,248 @@
+<div class="questionMain">
+    <div class="questionDiv">
+        <div class="question">
+            <h1>{{question.title}}</h1>
+            <p>{{question.body}}</p>
+             <div class="commentAuthor">
+                Posted by: {{question.postedBy.username}}
+                <div class="profilePictureDisplayNext" style="background-image: url('{{question.postedBy.profilePicturePath}}');"></div>
+            </div>
+            <p>Created: {{question.createdDisplay}}</p>           
+        </div>
+
+
+        {{#if session.userId}}
+            <div class="arrow">
+                <span id="toggleComment" style="cursor: pointer;">&#11166;</span>
+            </div>
+            <div id="questionCommentBox" class="questionCommentSubmit">
+                <form action="/comments/newCommentQuestion" method="POST">
+                    <input type="hidden" name="questionId" value="{{question._id}}">
+                    <textarea name="body"></textarea>
+                    <input type="hidden" name="currentUrl" class="current-url">
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        {{/if}}
+
+        <div class="showQuestionComments">
+            <button>Show comments</button>
+        </div>
+
+        <div class="questionCommentDisplay">
+            {{#each commentsQuestion}}
+                <div class="commentsDiv">
+                    <p class="commentBody">{{this.body}}</p>
+                    <div class="commentFooter">
+                        <p class="commentTime">Posted: {{this.createdDisplay}}</p>
+                        <div class="commentAuthor">
+                            Posted by: {{this.postedBy.username}}
+                            <div class="profilePictureDisplayNext" style="background-image: url('{{this.postedBy.profilePicturePath}}');"></div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+    
+
+    {{#if session.userId}}
+        <div class="showAnswerForm">
+            <button>Answer</button>
+        </div>
+    {{/if}}
+
+    <div class="questionAnswerSubmit">
+        <form action="/answers/newAnswer" method="POST">
+            {{#if session.userId}}
+                <input type="hidden" name="questionId" value="{{question._id}}">
+                <textarea name="body" placeholder="Answer"></textarea>
+                <button type="submit">Submit Answer</button>
+            {{/if}}
+        </form>
+    </div>
+
+    <div class="questionAnswerDisplay">
+        {{#each answers}}
+        {{#if this.isBest}}
+            <div class="AnswersDiv isBest">
+        {{else}}
+            <div class="AnswersDiv">
+        {{/if}}
+                <div class="answer-section">
+                    <div class="like-dislike">
+                    {{#if ../session.userId}}
+                        <form action="/answers/updateLikes" method="POST" class="circle-form" >
+                            <input type="hidden" name="answerId" value="{{this._id}}">
+                            <input type="hidden" name="action" value="like">
+                            <input type="hidden" name="currentUrl" class="current-url">
+                            <button type="submit" class="circle like {{#if this.isLiked}}liked{{else}}unliked{{/if}}"><i class="fa fa-thumbs-up"></i></button>
+                        </form>
+                    {{/if}}
+                        Score: {{this.score}}
+                    {{#if ../session.userId}}
+                        <form action="/answers/updateLikes" method="POST" class="circle-form">
+                            <input type="hidden" name="answerId" value="{{this._id}}">
+                            <input type="hidden" name="action" value="dislike">
+                            <input type="hidden" name="currentUrl" class="current-url">
+                            <button type="submit" class="circle dislike {{#if this.isDisliked}}disliked{{/if}}"><i class="fa fa-thumbs-down"></i></button>
+                        </form>
+                    {{/if}}
+                    </div>
+
+                    <div class="answerMainPart">
+                        <p>{{this.body}}</p>
+                        <div class="post-info" style="width: 100%;">
+                             <div class="commentAuthor1">
+                                Posted by: {{this.postedBy.username}}
+                                <div class="profilePictureDisplayNext" style="background-image: url('{{this.postedBy.profilePicturePath}}');"></div>
+                            </div>
+                            <p>Created: {{this.createdDisplay}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="answerOtherSection"> 
+                    <div class="buttonContainer">
+                        <div class="favouriteAnswerButton">
+                            {{#if ../question.isOwner}}
+                                {{#unless ../question.hasBestAnswer}}
+                                <!--{{log "bullshitshit:" this.questionReference}}-->
+                                    <form action="/answers/markBest" method="POST">
+                                        <input type="hidden" name="answerId" value="{{this._id}}">
+                                        <input type="hidden" name="questionId" value="{{this.questionReference}}">
+                                        <input type="hidden" name="currentUrl" class="current-url">
+                                        <button type="submit">Favourite answer</button>
+                                    </form>
+                                {{/unless}}
+                                {{#if this.isBest}}
+                                    <form action="/answers/unmarkBest" method="POST">
+                                        <input type="hidden" name="answerId" value="{{this._id}}">
+                                        <input type="hidden" name="questionId" value="{{this.questionReference}}">
+                                        <input type="hidden" name="currentUrl" class="current-url">
+                                        <button type="submit" style="background-color: rgb(255, 230, 183);">Unfavourite answer</button>
+                                    </form>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        <div class="deleteAnswerButton">
+                            {{#if this.isOwner}}
+                                <form action="/answers/deleteAnswer" method="POST">
+                                    <input type="hidden" name="answerId" value="{{this._id}}">
+                                    <input type="hidden" name="questionId" value="{{this.questionReference}}">
+                                    <input type="hidden" name="action" value="remove">
+                                    <input type="hidden" name="currentUrl" class="current-url">
+                                    <button type="submit">Remove answer</button>
+                                </form>
+                            {{/if}}
+                        </div>
+                    </div>
+                        <div class="postAnswerComment">
+                            {{#if ../session.userId}}
+                                <form action="/comments/newCommentAnswer" method="POST">
+                                    <input type="hidden" name="answerId" value="{{this._id}}">
+                                    <input type="hidden" name="questionId" value="{{this.questionReference}}">
+                                    <textarea name="body" placeholder="Comment"></textarea>
+                                    <input type="hidden" name="currentUrl" class="current-url">
+                                    <button type="submit">Submit Comment</button>
+                                </form>
+                            {{/if}}
+                        </div>
+                        <!--
+                        <div class="showAnswerComments">
+                            <button id="toggle-comments-button">Show comments</button>
+                        </div>
+                        -->
+                    </div>
+                <div class="answer-comments-div">
+                    {{#each commentsAnswer}}
+                        <div class="answerCommentsDiv">
+                            <p>{{this.body}}</p>
+                            <div class="post-info">
+                                <div class="commentAuthor1">
+                                    Posted by: {{this.postedBy.username}}
+                                    <div class="profilePictureDisplayNext" style="background-image: url('{{this.postedBy.profilePicturePath}}');"></div>
+                                </div>
+                                <p>Created: {{this.createdDisplay}}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+
+        {{/each}}
+    </div>
+</div>
+
+<script>
+    const currentUrl = window.location.href;
+    const urlInputs = document.querySelectorAll('.current-url');
+    urlInputs.forEach(input => {
+        input.value = currentUrl;
+    });
+
+    const toggleComment = document.getElementById('toggleComment');
+    const commentText = document.createElement('span');
+    commentText.textContent = ' COMMENT';
+    commentText.style.fontSize = '55%';
+    commentText.style.position = 'relative';
+    commentText.style.top = '-5px'; 
+    toggleComment.appendChild(commentText);
+
+    toggleComment.addEventListener('click', function() {
+        var commentBox = document.getElementById('questionCommentBox');
+        if (commentBox.style.display === 'none') {
+            commentBox.style.display = 'block';
+            toggleComment.innerHTML = '&#11167;';
+        } else {
+            commentBox.style.display = 'none';
+            toggleComment.innerHTML = '&#11166;';
+            toggleComment.appendChild(commentText);
+        }
+    });
+
+    var showCommentsButton = document.querySelector('.showQuestionComments button');
+    var commentsDisplay = document.querySelector('.questionCommentDisplay');
+
+    if (localStorage.getItem('commentsOpened') === 'true') {
+        commentsDisplay.style.display = 'block';
+    } else {
+        commentsDisplay.style.display = 'none';
+    }
+
+    showCommentsButton.addEventListener('click', function() {
+        if (commentsDisplay.style.display === 'none') {
+            commentsDisplay.style.display = 'block';
+            localStorage.setItem('commentsOpened', 'true');
+        } else {
+            commentsDisplay.style.display = 'none';
+            localStorage.removeItem('commentsOpened');
+        }
+    });
+
+    var answerButton = document.querySelector('.showAnswerForm button');
+    var answerForm = document.querySelector('.questionAnswerSubmit');
+
+    answerButton.addEventListener('click', function() {
+        if (answerForm.style.display === 'none' || answerForm.style.display === '') {
+            answerForm.style.display = 'block';
+        } else {
+            answerForm.style.display = 'none';
+        }
+    });
+
+    var toggleButtons = document.querySelectorAll('.toggle-comments-button');
+    toggleButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var commentsDiv = this.parentNode.nextElementSibling;
+            if (commentsDiv.style.display === 'none') {
+                commentsDiv.style.display = 'block';
+                this.textContent = 'Hide comments';
+            } else {
+                commentsDiv.style.display = 'none';
+                this.textContent = 'Show comments';
+            }
+        });
+    });
+</script>

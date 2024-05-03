@@ -1,0 +1,15 @@
+<div class="hotQuestionsMain">
+    {{#each questions}}
+    <div class="questionBody" id="question-{{@index}}">
+        <div class="myQuestionTitle"><a href="/questions/{{this.id}}">{{this.title}}</a></div>
+        <div class="myQuestionBody">{{this.body}}</div>
+        <div class="post-info">
+            <div class="myQuestionTime">Čas objave: {{this.createdDisplay}}</div>
+            <div class="commentAuthor1" style="margin-left:3%;">
+                Posted by: {{this.postedBy.username}}
+                <div class="profilePictureDisplayNext" style="background-image: url('{{this.postedBy.profilePicturePath}}');"></div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

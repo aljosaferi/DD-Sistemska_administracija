@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+
+    <div class="sidebar">
+      <div class="websiteNameDiv">EXPRESS</div>
+      <div class="profilePictureDiv">
+        <div class="profilePictureDisplay"><img src="{{session.profilePicture}}"></div>
+        <div class="nameDisplay">{{session.username}}</div>
+      </div>
+      <div class="navDiv">
+          <div class="navDivHome"><a href='/'>HOME</a></div>
+          {{#if session.userId}}
+          <div class="navDivProfile"><a href='/users/profile'>PROFILE</a></div>
+          <!--<div><a href='/photos/publish'>Objavi sliko</a></div>-->
+          <div class="navDivMQ"><a href='/questions/myQuestions'>MY QUESTIONS</a></div>
+          <div class="navDivHQ"><a href='/questions/hotQuestions'>HOT QUESTIONS</a></div>
+          <div class="navDivLogout"><a href='/users/logout'>LOGOUT</a></div>
+          {{else}}
+          <div class="navDivLogin"><a href='/users/login'>LOGIN</a></div>
+          <div class="navDivRegister"><a href='/users/register'>REGISTER</a></div>
+          {{/if}}
+      </div>
+
+      
+    </div>
+    <div class="content">
+      {{{body}}}
+    </div>
+
+  </body>
+</html>

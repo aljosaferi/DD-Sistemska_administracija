@@ -1,0 +1,1291 @@
+body {
+  padding: 50px;
+  padding-top: 80px;
+  margin: 0 8%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 70vh;
+  display: flex;
+  background: linear-gradient(135deg, rgb(142, 8, 142), rgb(25, 25, 25), rgb(13, 13, 13), rgb(25, 25, 25), rgb(229, 88, 6));
+  background-size: 115% 120%;
+}
+
+textarea {
+  resize: none;
+}
+
+a {
+  color: #00B7FF;
+  text-decoration: none;
+}
+
+nav ul{
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a{
+  text-decoration: none;
+}
+
+
+
+
+/* spodaj je layout za body + sidebar */
+
+.sidebar {
+  background-color: #2D2D2D;
+  width: 25%;
+  height: 85vh;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.websiteNameDiv {
+  color: white;
+  font-size: 20px;
+  margin: 10px 0;
+  margin-top: 40px;
+}
+
+.profilePictureDiv {
+  margin-top: 10px;
+  background-color: black;
+  width: 70%;
+  height: 30%;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nameDisplay {
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  padding-top: 3%;
+}
+
+.profilePictureDisplay {
+  width: 70%;
+  height: 70%;
+  border-radius: 100%;
+  background-color: white;
+  border: 6px solid blueviolet;
+  overflow: hidden;
+}
+
+.profilePictureDisplay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navDiv {
+  width: 75%;
+  height: 50%;
+  
+}
+
+.navDiv div {
+  width: 100%;
+  height: 10%;
+  margin: 4% 0;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px white solid;
+  font-weight: bold;
+}
+
+.navDiv div a {
+  color: white;
+  text-decoration: none;
+}
+
+/* spodaj je layout za body*/
+
+.content {
+  background-color: black; /*to more bit black*/
+  width: 75%;
+  height: 100%;
+  margin: 5vh 0;
+  border-top-right-radius: 15px; 
+  border-bottom-right-radius: 15px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.indexMainDiv {
+  height: 90%;
+  width: 90%;
+  background-color: black;
+  
+
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.newQuestionContainer {
+  width: 100%;
+  height: 13%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: rgb(81, 3, 136) solid 4px;
+  background-color: rgb(112, 112, 112);
+
+  margin-left: 5%;
+
+  border-radius: 15px;
+  position: relative;
+  margin-bottom: 2%;
+}
+.newQuestionDivText {
+  width: 70%;
+  height: 100%;
+  /*background-color: red;*/
+  border-radius: 15px;
+  margin-right: 2%;
+
+  
+
+  font-size: 180%;
+  font-weight: bold;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.newQuestionDiv {
+  width: 30%;
+  height: 75%;
+  background-color: lightgrey;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 15px;
+  margin-right: 5%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 200%;
+}
+.newQuestionDiv a {
+  color: black;
+  text-decoration: none;
+}
+
+.questionsDisplay {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  height: 70%;
+  flex-grow: 1;
+  overflow-y: scroll;
+  position: relative;
+}
+.questionsDisplay::-webkit-scrollbar {
+  display: none;
+}
+
+.singularQuestionDiv {
+  width: 90%;
+  height: auto;
+  min-height: 150px;
+
+  border: 5px solid #2D2D2D;
+  background-color: #2D2D2D;
+  border-radius: 15px;
+  margin-bottom: 2%;
+  color: white;
+  
+  margin-left: 8%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* spodaj bo css za vprasanje pri index */
+.questionTopRow {
+  width: 125%;
+  height: 10%;
+  display: flex;
+  margin-bottom: 5%;
+}
+.indexTimePosted {
+  width: 50%;
+  height: 100%;
+  padding-top: 1%;
+}
+
+.questionIndexTitle {
+  width: 95%;
+  font-size: 300%;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+.questionIndexTitle a {
+  color: rgb(137, 31, 213);
+  text-decoration: none;
+}
+
+.questionIndexTitle a:hover {
+  color: rgb(184, 84, 255);
+  text-decoration: none;
+}
+
+.indexPostedBy {
+  margin-left: 3%;
+  margin-bottom: 3%;
+  font-size: 125%;
+}
+.indexNumAnswers {
+  margin-left: 3%;
+  margin-top: 2%;
+}
+
+
+
+/* spodaj bo css za vprasanja display*/
+
+.questionMain {
+  height: 90%;
+  width: 90%;
+  background-color: black;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+}
+
+.questionMain::-webkit-scrollbar {
+  display: none;
+}
+
+.questionDiv {
+  background: #666666;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.indexPostedBy a {
+  color: rgb(137, 31, 213);
+  text-decoration: none;
+}
+
+.postedByPlaceholder {
+  margin-left: 10%;
+  font-size: bold;
+}
+
+.indexPostedBy a:hover {
+  color: rgb(184, 84, 255);
+  text-decoration: none;
+}
+
+.question {
+  background: #666666;
+  width: 100%;
+}
+.question h1 {
+  margin-left: 3%;
+}
+.question p {
+  margin-left: 3%;
+}
+
+.questionCommentSubmit {
+  /**/display: none;
+  margin-left: 3%;
+}
+.questionCommentSubmit textarea {
+  /*display: none;*/
+  width: 94%;
+  height: 50px;
+  background-color: lightgray;
+  border: none;
+  border-radius: 10px;
+  padding-left: 3%;
+}
+.questionCommentSubmit button {
+  /*display: none;*/
+  width: 15%;
+  height: 40px;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.arrow {
+  margin-left: 3%;
+  font-size: 2.3em;
+  color:  rgb(81, 3, 136);
+  font-weight: bold;
+}
+
+
+.showQuestionComments {
+  width: 100%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 3%;
+}
+.showQuestionComments button {
+  width: 20%;
+  height: 40px;
+  background-color: lightgrey;
+  border: rgb(67, 12, 107) solid 3px;
+  border-radius: 10px;
+}
+
+.questionCommentDisplay {
+  background-color: #666666;
+  width: 100%;
+}
+
+.commentsDiv {
+  width: 94%;
+  background-color: #404040;
+  border: black solid 3px;
+  border-radius: 15px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  margin-left: 3%;
+}
+
+.commentsDiv p {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.commentBody {
+  flex: 1;
+}
+
+.commentFooter {
+  justify-content: space-between;
+}
+
+.showAnswerForm {
+  width: 100%;
+  margin-top: 1%;
+  margin-left: 6%;
+}
+.showAnswerForm button {
+  width: 20%;
+  height: 40px;
+  background-color: rgb(123, 0, 210);
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+  margin-bottom: 1%;
+}
+
+.questionAnswerSubmit {
+  background-color: #2D2D2D;
+  width: 97%;
+  padding-left: 3%;
+  border-radius: 10px;
+  margin-bottom: 2%;
+}
+
+.questionAnswerSubmit textarea {
+  width: 94%;
+  height: 50px;
+  background-color: lightgray;
+  border: none;
+  border-radius: 10px;
+  padding-left: 3%;
+  margin-top: 1%;
+ 
+}
+
+.questionAnswerSubmit button {
+  width: 15%;
+  height: 40px;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.questionAnswerSubmit {
+  display: none;
+}
+
+.answer-section {
+  display: flex;
+}
+
+.like-dislike {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 10%;
+}
+
+.answerMainPart {
+  margin-left: 3%;
+  width: 100%;
+}
+.post-info {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.questionAnswerDisplay {
+  margin-top: 1%;
+  width: 95%;
+  margin-left: auto;
+}
+
+.AnswersDiv {
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #666666;
+}
+.AnswersDiv.isBest {
+  border: 4px solid orange;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.circle-form {
+  display: inline-block;
+}
+
+.circle.like {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  padding: 0;
+  margin-right: 10px;
+  cursor: pointer;
+  background: none;
+  color: rgb(171, 255, 171);
+  font-size: 175%;
+  border: none;
+}
+.circle.dislike {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  padding: 0;
+  margin-right: 10px;
+  cursor: pointer;
+  background: none;
+  color: rgb(255, 151, 151);
+  font-size: 175%;
+  border: none;
+}
+
+.circle-form .like:hover, .circle-form .like.liked {
+  color: rgb(0, 214, 0) !important;
+}
+
+.circle-form .dislike:hover, .circle-form .dislike.disliked {
+  color: red !important;
+}
+
+
+
+.buttonContainer {
+  display: flex;
+}
+
+.favouriteAnswerButton {
+  margin-right: 1%;
+  
+}
+
+.favouriteAnswerButton button {
+  width: 100%;
+  height: 40px;
+  background-color: lightgray;
+  border: orange solid 3px;
+  border-radius: 10px;
+}
+
+.deleteAnswerButton button {
+  width: 100%;
+  height: 40px;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+}
+
+
+
+.postAnswerComment textarea {
+  width: 94%;
+  height: 50px;
+  background-color: lightgray;
+  border: none;
+  border-radius: 10px;
+  padding-left: 3%;
+  margin-top: 1%;
+}
+
+.postAnswerComment button {
+  width: 15%;
+  height: 40px;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+
+.answerCommentsDiv {
+  background-color: #4b4b4b;
+  margin-left: 8%;
+  padding-left: 3%;
+  padding-right: 3%;
+  width: 84%;
+  margin-top: 1%;
+  border-radius: 15px;
+  border: #000 solid 3px;
+}
+
+.showAnswerComments button {
+  width: 15%;
+  height: 40px;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+}
+
+/*MY QUESTIONS CSS SPODAJ*/
+
+.myQuestionsMainDiv {
+  background-color: #444343;
+
+  height: 90%;
+  width: 90%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.myQuestionsMainDiv::-webkit-scrollbar {
+  display: none;
+}
+
+.myQuestionsMainDiv a {
+  color: black;
+  text-decoration: none;
+}
+
+.myQuestionWholeTitle {
+  width: 100%;
+  height: 8%;
+  background-color: black;
+}
+.myQuestionsTitle {
+  background-color: #444343;
+  font-weight: bold;
+  font-size: 200%;
+  width: 28%;
+  height: 100%;
+  padding-left: 4%;
+  padding-top: 1%;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  align-self: flex-start;
+}
+
+.questionBody {
+  background-color: #858585;
+  width: 93%;
+  margin-top: 1%;
+  border-radius: 15px;
+  margin-left: 3%;
+  margin-right: 3%;
+  border: rgb(81, 3, 136) solid 4px;
+}
+.myQuestionTitle {
+  font-weight: bold;
+  font-size: 200%;
+  margin-left: 3%;
+  margin-bottom: 1%;
+  margin-top: 1%;
+}
+.myQuestionTime {
+  margin-left: 3%;
+  margin-bottom: 1%;
+}
+.myQuestionPostedBy {
+  margin-right: 3%;
+  margin-bottom: 1%;
+}
+.myQuestionBody {
+  margin-left: 3%;
+  margin-bottom: 1%;
+}
+.questionBody button {
+  width: 20%;
+  height: 40px;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+  margin-left: 3%;
+  margin-bottom: 1%;
+}
+
+.questionBody button:hover {
+  width: 20%;
+  height: 40px;
+  background-color: rgb(255, 218, 149);
+  border: orange solid 3px;
+  border-radius: 10px;
+  margin-left: 3%;
+  margin-bottom: 1%;
+}
+
+
+
+/*NEW QUESTIN CSS SPODAJ*/
+
+.newQuestionMainDiv {
+  background-color: #444343;
+
+  height: 90%;
+  width: 90%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.newQuestionTitle {
+  background-color: red;
+  width: 30%;
+  height: 10%;
+  font-weight: bold;
+  font-size: 200%;
+  margin-top: 1%;
+  margin-bottom: 3%;
+}
+
+.newQuestionForm {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 3%;
+  margin-top: 3%;
+}
+
+.questionNewTitle {
+  margin-bottom: 1%;
+  width: 100%;
+}
+
+.questionNewBody {
+  width: 100%;
+}
+
+.newQuestionForm input[name="title"] {
+  width: 95%;
+  height: 100%;
+  border-radius: 10px;
+}
+.newQuestionForm input[name="body"] {
+  width: 95%;
+  height: 100%;
+  border-radius: 10px;
+  height: 200px;
+}
+
+.newQuestionMainDiv button {
+  width: 20%;
+  height: 40px;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+  margin-top: 1%;
+  margin-left: 77%;
+}
+
+.input-group {
+  display: flex;
+  margin-bottom: 1%;
+}
+
+.label1 {
+  margin-right: 3%;
+  width: 15%;
+  font-weight: bold;
+  font-size: 200%;
+  padding-left: 3%;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+}
+.label2 {
+  margin-right: 7%;
+  width: 15%;
+  font-weight: bold;
+}
+.bodyInner {
+  background-color: lightgray;
+  height: 15%;
+  width: 100%;
+  font-weight: bold;
+  font-size: 200%;
+  padding-left: 26%;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+}
+
+
+/*Spodaj so hot questions css*/
+
+.hotQuestionsMain {
+  background-color: #444343;
+
+  height: 90%;
+  width: 90%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.hotQuestionsMain::-webkit-scrollbar {
+  display: none;
+}
+
+.hotQuestionsMain a {
+  color: black;
+  text-decoration: none;
+}
+
+#question-0 {
+  border: 4px solid red;
+}
+
+#question-1 {
+  border: 3px solid #ff4000;
+}
+
+#question-2 {
+  border: 3px solid #ff8000;
+}
+
+#question-3 {
+  border: 3px solid #ffbf00;
+}
+
+#question-4 {
+  border: 3px solid yellow;
+}
+
+#question-0 a:hover {
+  color:  red;
+}
+
+#question-1 a:hover {
+  color:  #ff4000;
+}
+
+#question-2 a:hover{
+  color:  #ff8000;
+}
+
+#question-3 a:hover {
+  color:  #ffbf00;
+}
+
+#question-4 a:hover {
+  color:  yellow;
+}
+
+
+/*USER PROFILE CSS PODAJ*/
+
+.userProfileMain {
+  background-color: #444343;
+
+  height: 90%;
+  width: 90%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.userProfileMain::-webkit-scrollbar {
+  display: none;
+}
+
+.generalProfileInfo {
+  background-color: #ff4000;
+  width: 30%;
+  font-size: 200%;
+  padding: 1%;
+  text-align: center;
+}
+
+
+
+
+
+.questionsProfileMainDiv {
+  background-color: #858585;
+  width: 96%;
+  margin-left: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 15px;
+
+  border: 3px solid rgb(81, 3, 136) ; 
+}
+
+.userProfileTitleAndStats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 35px;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+.userProfileTitle {
+  background-color: #858585;
+  font-size: 175%;
+  width: 40%;
+  padding: 1%;
+  height: 100%;
+  border-radius: 10px;
+  border: 3px solid rgb(81, 3, 136);
+  margin-left: 1%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.userProfileTitle button {
+  width: 40%;
+  height: 100%;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  border-radius: 10px;
+  margin-left: 3%;
+  vertical-align: middle;
+
+  margin-left: auto;
+}
+.statsDiv {
+  width: 60%;
+  height: 100%;
+  background-color: #858585;
+  padding: 1%;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 3px solid rgb(81, 3, 136);
+  border-left: none;
+
+  margin-right: 1%;
+}
+
+.profileQuestionsDiv {
+  background-color: lightgray;
+  margin-left: 3%;
+  margin-right: 3%;
+  
+  border-radius: 10px;
+  border: 2px solid black;
+  margin-bottom: 1%;
+  padding: 1%;
+}
+
+.profileQuestionsDiv a {
+  color: black;
+  text-decoration: none;
+}
+
+
+.questionsNameHolder {
+  margin-left: 30%;
+  
+  border: 3px solid rgb(55, 0, 94) ; 
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #858585;
+  width: 40%;
+  font-size: 200%;
+  padding: 1%;
+  text-align: center;
+}
+
+.questionsDivHolderWhatever {
+  width: 100%;
+  height: 90%;
+}
+
+.titleQ {
+  font-weight: bold;
+  font-size: 200%;
+  margin-bottom: 2%;
+}
+
+.answersProfileMainDiv {
+  background-color: #858585;
+  width: 100%;
+}
+
+.answersNameHolder {
+  margin-top: 2%;
+  margin-left: 30%;
+  
+  border: 3px solid rgb(55, 0, 94) ; 
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #858585;
+  width: 40%;
+  font-size: 200%;
+  padding: 1%;
+  text-align: center;
+}
+
+.answersProfileDiv {
+  background-color: lightgray;
+  margin-left: 3%;
+  margin-right: 3%;
+  
+  border-radius: 10px;
+  border: 2px solid black;
+  margin-bottom: 1%;
+  padding: 1%;
+}
+
+.answersProfileMainDiv {
+  background-color: #858585;
+  width: 96%;
+  margin-left: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 15px;
+
+  border: 3px solid rgb(81, 3, 136) ; 
+}
+
+.answersProfileDiv a {
+  color: rgb(81, 3, 136);
+  text-decoration: none;
+}
+
+.answersProfileDiv a:hover {
+  color: rgb(137, 31, 213);
+  text-decoration: none;
+}
+
+/*CSS ZA PROFILE*/
+
+.profileMainClass {
+  background-color: black;
+  
+  height: 90%;
+  width: 90%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  
+}
+
+.firstHolderProfile {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40%;
+
+  background-color: #444343;
+  border-radius: 10px;
+}
+.contentHolderPfp {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+
+  background-color: #444343;
+  border-radius: 10px;
+}
+
+
+
+.profilePictureHolder {
+  width: 200px;
+  height: 200px;
+  margin-right: 2%;
+  margin-left: 2%;  
+}
+
+.profilePictureHolder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid black
+}
+.pfpRest {
+  background-color: #666666;
+  width: 73%;
+  border-radius: 10px;
+  border:rgb(67, 12, 107) solid 3px;
+}
+
+.profileName {
+  font-size: 200%;
+  margin-bottom: 1%;
+  margin-left: 3%;
+  margin-top: 2%;
+}
+
+.profileEmail {
+  font-size: 200%;
+  margin-bottom: 2%;
+  margin-left: 3%;
+}
+
+.formHolderProfile1 {
+  margin-left: 3%;
+  margin-bottom: 2%;
+  width: 90%;
+  min-height: 40%;
+}
+
+.formHolderProfile2 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.imageFile {
+  background-color: #666666;
+  width: 35%;
+}
+.tp {
+  background-color: #666666;
+  width: 50%;
+  height: 100%;
+}
+
+.blankSpace {
+  width: 100%;
+  background-color: black;
+}
+
+.submitPfp {
+  width: 50%;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-left: 1%;
+  height: 100%;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  font-size: 125%;
+  padding: 3%;
+}
+
+
+/*input[type="file"] {
+  display: none;
+}*/
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+
+
+/*CSS ZA LOGIN*/
+.loginMainDiv {
+  background-color: #666666;
+  
+  height: 90%;
+  width: 60%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+}
+.loginForm {
+  width: 80%;
+}
+
+.usernameLogin {
+  width: 100%;
+  height: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: lightgray;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.passwordLogin {
+  width: 100%;
+  height: 10%;
+  margin-bottom: 5%;
+  background-color: lightgray;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.submitLogin {
+  width: 30%;
+  border-radius: 10px;
+  box-sizing: border-box;
+  height: 80%;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  font-size: 125%;
+  padding: 2%;
+}
+
+.submitLogin:focus .passwordLogin:focus {
+  border: none;
+}
+
+/*CSS ZA REGISTER*/
+.registerMainDiv {
+  background-color: #666666;
+  
+  height: 90%;
+  width: 60%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+}
+.registerForm {
+  width: 80%;
+}
+
+.registerEmail {
+  width: 100%;
+  height: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: lightgray;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.registerUsername {
+  width: 100%;
+  height: 10%;
+  margin-bottom: 5%;
+  background-color: lightgray;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 1%;
+}
+.registerPassword {
+  width: 100%;
+  height: 10%;
+  margin-bottom: 5%;
+  background-color: lightgray;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.submitRegister {
+  width: 30%;
+  border-radius: 10px;
+  box-sizing: border-box;
+  height: 80%;
+  background-color: lightgray;
+  border: rgb(81, 3, 136) solid 3px;
+  font-size: 125%;
+  padding: 2%;
+}
+
+/*ERROR MESSAGE*/
+.errorMain {
+  background-color: #444343;
+  font-size: 200%;
+  height: 20%;
+  width: 60%;
+
+  border: orange solid 3px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+/*pfp css*/
+
+.profilePictureDisplayNext {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  margin-left: 1%;
+}
+
+.commentAuthor {
+  display: flex;
+  align-items: center;
+  margin-left: 3%;
+}
+.commentAuthor1 {
+  display: flex;
+  align-items: center;
+}

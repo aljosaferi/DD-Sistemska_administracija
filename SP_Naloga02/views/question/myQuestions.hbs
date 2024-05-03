@@ -1,0 +1,42 @@
+
+<div class="myQuestionsMainDiv">
+    <div class="myQuestionWholeTitle">
+        <div class="myQuestionsTitle">MY QUESTIONS</div>
+    </div>
+
+    {{#each questions}}
+    <div class="questionBody" id="{{this.id}}">
+        <div class="myQuestionTitle"><a href="/questions/{{this.id}}">{{this.title}}</a></div>
+        <div class="myQuestionBody">{{this.body}}</div>
+        <div class="post-info">
+            <div class="myQuestionTime">Čas objave: {{this.createdDisplay}}</div>
+            <div class="myQuestionPostedBy">Posted by: {{postedBy.username}}</div>
+        </div>
+        <form action="/questions/removeQuestion" method="POST">
+            <input type="hidden" name="questionId" value="{{this._id}}">
+            <input type="hidden" name="action" value="remove">
+            <input type="hidden" name="currentUrl" class="current-url">
+            <button type="submit">Remove my question</button>
+        </form>
+    </div>
+    <hr/>
+    {{/each}}
+</div>
+
+<script>
+    const currentUrl = window.location.href;
+    const urlInputs = document.querySelectorAll('.current-url');
+    urlInputs.forEach(input => {
+        input.value = currentUrl;
+    });
+
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.addEventListener('mouseover', function() {
+            this.closest('.questionBody').style.borderColor = 'orange';
+        });
+        button.addEventListener('mouseout', function() {
+            this.closest('.questionBody').style.borderColor = '';
+        });
+    });
+</script>

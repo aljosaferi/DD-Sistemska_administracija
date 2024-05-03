@@ -1,0 +1,27 @@
+<div class="profileMainClass">
+    <div class="firstHolderProfile"> 
+        <div class="contentHolderPfp">
+            <div class="profilePictureHolder">
+                <img src="{{profilePicturePath}}" title="{{username}}'s profile picture" width="400"/>
+            </div>
+            <div class="pfpRest">
+                <div class="profileName">Username: {{username}}</div>
+                <div class="profileEmail">E-mail: {{email}}</div>
+                <div class="formHolderProfile1">
+                    <form action="/users/addProfilePicture" method="post" enctype="multipart/form-data">
+                        <div class="formHolderProfile2">
+                            <div class="imageFile">
+                                <input type="file" name="image" class="submitImage">
+                            </div>
+                            <div class="tp">
+                                <input type="submit" value="Dodaj" class="submitPfp">
+                            </div>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>   
+    <div class="blankSpace"></div>
+</div>
+    

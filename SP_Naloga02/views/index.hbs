@@ -1,0 +1,38 @@
+<div class="indexMainDiv">
+    {{#if session.userId}}
+    <div class="newQuestionContainer">
+        <div class="newQuestionDivText">
+            Do you have a question but don't know the answer?
+        </div>
+        <div class="newQuestionDiv">
+            <a href='/questions/newQuestion'>Ask Question</a>
+        </div>
+    </div>
+    {{else}}
+    <div class="loginAlertIndex">
+        Log in to ask question
+    </div>
+    {{/if}}
+        <div class="questionsDisplay">
+            {{#each questions}}
+                <div class="singularQuestionDiv">
+                    <div class="questionTopRow">
+                        <div class="questionIndexTitle"><a href="/questions/{{this.id}}">{{this.title}}</a></div>
+                        <div class="indexTimePosted">{{this.createdDisplay}}</div>
+                    </div>
+                    <div class="indexPostedBy">
+                                <div class="commentAuthor1">
+                                    Posted by: <a href="/users/displayProfile/{{this.postedBy._id}}"><div class="postedByPlaceholder">{{postedBy.username}}</div></a>
+                                    <div class="profilePictureDisplayNext" style="background-image: url('{{this.postedBy.profilePicturePath}}');"></div>
+                                </div>    
+                    </div>
+                    <div class="indexNumAnswers">Število odgovorov: {{this.numberOfAnswers}}</div>
+                </div>                
+            {{/each}}
+        </div>
+</div>
+
+                                <div class="commentAuthor1">
+                                    Posted by: <a href="/users/displayProfile/{{this.postedBy._id}}">{{postedBy.username}}</a>
+                                    <div class="profilePictureDisplayNext" style="background-image: url('{{this.postedBy.profilePicturePath}}');"></div>
+                                </div>

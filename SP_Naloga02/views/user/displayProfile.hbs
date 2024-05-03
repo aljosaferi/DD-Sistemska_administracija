@@ -1,0 +1,55 @@
+<div class="userProfileMain">
+
+    <div class="userProfileTitleAndStats">
+            <div class="userProfileTitle">{{user.username}}'s Profile <button>Show statistics</button></div>
+            <div class="statsDiv" style="display: none;">
+                Questions: {{numberOfQuestions}}
+                Answers: {{numberOfAnswers}}
+            </div>
+        </div>
+
+    <div class="questionsDivHolderWhatever">
+        <div class="questionsNameHolder">Questions</div>
+            <div class="questionsProfileMainDiv">
+            {{#each questions}}
+            <div class="profileQuestionsDiv">
+                <div class="titleQ"><a href="/questions/{{this.id}}">{{this.title}}</a></div>
+                <div class="timeQ">Čas objave: {{this.createdDisplay}}</div>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="answersNameHolder">Answers</div>
+            <div class="answersProfileMainDiv">
+                {{#each answers}}
+                <div class="answersProfileDiv">
+                    <h2>Asked on <a href="/questions/{{this.questionReference.id}}">{{this.questionReference.title}}</a></h2>
+                    <p>Score: {{this.score}}</p>
+                    <p>Čas objave: {{this.createdDisplay}}</p>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var button = document.querySelector('.userProfileTitle button');
+    var statsDiv = document.querySelector('.statsDiv');
+    var userProfileTitle = document.querySelector('.userProfileTitle');
+
+    button.addEventListener('click', function() {
+        if (statsDiv.style.display === 'none') {
+            statsDiv.style.display = 'block';
+            userProfileTitle.style.borderRight = 'none'; 
+            userProfileTitle.style.borderTopRightRadius = '0'; 
+            userProfileTitle.style.borderBottomRightRadius = '0'; 
+        } else {
+            statsDiv.style.display = 'none';
+            userProfileTitle.style.borderRight = ''; 
+            userProfileTitle.style.borderTopRightRadius = ''; 
+            userProfileTitle.style.borderBottomRightRadius = '';
+        }
+    });
+    });
+</script>
