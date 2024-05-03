@@ -8,7 +8,7 @@ function Register() {
 
     async function Register(e){
         e.preventDefault();
-        const res = await fetch("http://localhost:3001/users", {
+        const res = await fetch("http://20.52.166.76:3001/users", {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
