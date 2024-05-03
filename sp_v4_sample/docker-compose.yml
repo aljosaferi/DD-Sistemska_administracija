@@ -13,16 +13,9 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    depends_on:
-      - mongo
-
-  mongo:
-    image: mongo
-    container_name: mongo_c
-    ports:
-      - '27017:27017'
-    volumes:
-      - data:/data/db
+    environment:
+      - NODE_PORT=3001
+      - DB_URI=mongodb+srv://aljosa:nK4hUAF0hQjLLBwT@reactdatabase.upbxcew.mongodb.net/?retryWrites=true&w=majority&appName=ReactDatabase
 
   frontend:
     build:

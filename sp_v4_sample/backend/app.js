@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 // vključimo mongoose in ga povežemo z MongoDB
 var mongoose = require('mongoose');
-var mongoDB = "mongodb://127.0.0.1/vaja4";
+var mongoDB = "mongodb+srv://aljosa:nK4hUAF0hQjLLBwT@reactdatabase.upbxcew.mongodb.net/?retryWrites=true&w=majority&appName=ReactDatabase";
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
