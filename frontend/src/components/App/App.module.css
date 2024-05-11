@@ -1,0 +1,17 @@
+.container {
+    box-sizing: border-box;
+    display: flex;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    overflow-y: scroll;
+}
+
+
+.main-container::-webkit-scrollbar {
+    display: none;
+}
