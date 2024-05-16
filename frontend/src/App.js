@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { UserContext } from "../../userContext";
-import Sidebar from "../Sidebar/Sidebar";
-import Photos from "../Photos/Photos";
-import Login from "../Login/Login";
-import Register from "../Register/Register";
-import Profile from "../Profile/Profile";
-import Logout from "../Logout/Logout";
-import AddPhoto from "../AddPhoto/AddPhoto";
-
-import styles from './App.module.css'
+import { UserContext } from "./userContext";
+import Header from "./components/Header";
+import Photos from "./components/Photos";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Profile from "./components/Profile";
+import Logout from "./components/Logout";
+import AddPhoto from "./components/AddPhoto";
 
 function App() {
   /**
@@ -46,18 +44,16 @@ function App() {
         user: user,
         setUserContext: updateUserData
       }}>
-        <div className={styles['container']}>
-            <Sidebar title="Janstagram"></Sidebar>
-          <div className={styles['main-container']}>
-            <Routes>
-              <Route path="/" exact element={<Photos />}></Route>
-              <Route path="/login" exact element={<Login />}></Route>
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/publish" element={<AddPhoto />}></Route>
-              <Route path="/profile" element={<Profile />}></Route>
-              <Route path="/logout" element={<Logout />}></Route>
-            </Routes>
-          </div>
+        <div className="App">
+          <Header title="My application"></Header>
+          <Routes>
+            <Route path="/" exact element={<Photos />}></Route>
+            <Route path="/login" exact element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/publish" element={<AddPhoto />}></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/logout" element={<Logout />}></Route>
+          </Routes>
         </div>
       </UserContext.Provider>
     </BrowserRouter>
