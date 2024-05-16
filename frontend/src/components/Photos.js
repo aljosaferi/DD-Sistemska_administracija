@@ -5,7 +5,7 @@ function Photos(){
     const [photos, setPhotos] = useState([]);
     useEffect(function(){
         const getPhotos = async function(){
-            const res = await fetch("http://localhost:3001/photos");
+            const res = await fetch("http://13.95.23.193:3001/photos");
             const data = await res.json();
             setPhotos(data);
         }

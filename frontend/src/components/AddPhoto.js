@@ -19,7 +19,7 @@ function AddPhoto(props) {
         const formData = new FormData();
         formData.append('name', name);
         formData.append('image', file);
-        const res = await fetch('http://localhost:3001/photos', {
+        const res = await fetch('http://13.95.23.193:3001/photos', {
             method: 'POST',
             credentials: 'include',
             body: formData

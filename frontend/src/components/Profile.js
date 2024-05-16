@@ -8,7 +8,7 @@ function Profile(){
 
     useEffect(function(){
         const getProfile = async function(){
-            const res = await fetch("http://localhost:3001/users/profile", {credentials: "include"});
+            const res = await fetch("http://13.95.23.193:3001/users/profile", {credentials: "include"});
             const data = await res.json();
             setProfile(data);
         }
