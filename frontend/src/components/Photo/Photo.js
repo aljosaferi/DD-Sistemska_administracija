@@ -3,7 +3,6 @@ import moment from 'moment';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../userContext';
 
-import Modal from '@mui/material/Modal';
 import PhotoDetails from '../PhotoDetails/PhotoDetails';
 
 moment.updateLocale('en', {
@@ -33,7 +32,7 @@ function Photo(props){
     const [likes, setLikes] = useState(props.photo.likes);
     const [hasLiked, setHasLiked] = useState(userContext.user && props.photo.likedBy.includes(userContext.user._id));
     const [hasReported, setHasReported] = useState(false)
-    const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+    const [modalState, setModalState] = useState('modal-closed');
 
     const likePhoto = async () => {
         if(!userContext.user) return 
@@ -84,12 +83,12 @@ function Photo(props){
         });
     }
 
-    const openImageModal = () => {
-        setIsImageModalOpen(true)
-    }
-
-    const closeImageModal = () => {
-        setIsImageModalOpen(false)
+    const toggleModal = () => {
+        if(modalState === 'modal-closed') {
+            setModalState('modal-opened')
+        } else {
+            setModalState('modal-closed')
+        }
     }
 
     if(hasReported) {
@@ -114,16 +113,21 @@ function Photo(props){
                 <div className={styles['like-comment-report']}>
                     <div className={styles['like-comment']}>
                         <i className={`${hasLiked ? 'fa-solid' : 'fa-regular'} fa-heart icon ${hasLiked ? 'icon-secondary' : ''} ${styles['like-icon']}`} onClick={likePhoto} title="Like"/>
-                        <i className={`fa-regular fa-comments icon ${styles['comments-icon']}`} onClick={openImageModal} title="Comments"/>
+
+                        <input type="checkbox" id={`modal-${props.photo._id}`} />    
+                        <label htmlFor={`modal-${props.photo._id}`} className="example-label">
+                            <i className={`fa-regular fa-comments icon ${styles['comments-icon']}`} onClick={toggleModal} title="Comments"/>
+                        </label>
+                        <label htmlFor={`modal-${props.photo._id}`} className="modal-background"/>
+                        <div className="modal">
+                            <PhotoDetails photoId={props.photo._id}/>
+                        </div>
+                    
                     </div>
                     <i className={`fa-regular fa-flag icon ${styles['report-icon']}`} onClick={reportPhoto} title="Report"/>
                 </div>
                 <label>{likes} {likes === 1 ? 'like' : 'likes'}</label>
             </div>
-
-            <Modal open={isImageModalOpen} onClose={closeImageModal}>
-                <PhotoDetails photoId={props.photo._id}/>
-            </Modal>
         </div>
     );
 }
