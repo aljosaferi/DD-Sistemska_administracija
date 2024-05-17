@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { UserContext } from '../userContext';
+import { UserContext } from '../../userContext';
 import { Navigate } from 'react-router-dom';
 
 function Logout(){
@@ -7,7 +7,7 @@ function Logout(){
     useEffect(function(){
         const logout = async function(){
             userContext.setUserContext(null);
-            const res = await fetch("http://13.95.23.193:3001/users/logout");
+            const res = await fetch("http://" + process.env.REACT_APP_IP_ADDY + ":3001/users/logout");
         }
         logout();
     }, []);

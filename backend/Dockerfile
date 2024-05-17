@@ -1,8 +1,8 @@
 #Uporabimo base-image alpine za Node.js
-FROM node:alpine
+FROM node:16
 
 #Za delovni direktorij nastavimo /app/backend
-WORKDIR /app/backend
+WORKDIR /app
 
 #Kopiramo package.json in package-lock.json
 COPY package*.json ./

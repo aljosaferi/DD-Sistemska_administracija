@@ -6,6 +6,21 @@ var userSchema = new Schema({
 	'username' : String,
 	'password' : String,
 	'email' : String
+}, {
+	toJSON: { virtuals: true },
+	toObject: { virtuals: true }
+});
+
+userSchema.virtual('photos', {
+	ref: 'photo',
+	localField: '_id',
+	foreignField: 'postedBy'
+});
+
+userSchema.virtual('comments', {
+	ref: 'comment',
+	localField: '_id',
+	foreignField: 'postedBy'
 });
 
 userSchema.pre('save', function(next){

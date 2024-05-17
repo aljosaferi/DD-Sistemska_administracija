@@ -1,11 +1,11 @@
 #Uporabimo base-image alpine za Node.js
 FROM node:alpine
 
-#Za delovni direktorij nastavimo /app/frontend
-WORKDIR /app/frontend
+#Za delovni direktorij nastavimo /app/backend
+WORKDIR /app
 
 #Kopiramo package.json in package-lock.json
-COPY package*.json ./
+COPY package*.json .
 #Naložimo odvisnosti(module)
 RUN npm install
 #Kopiramo preostale datoteke

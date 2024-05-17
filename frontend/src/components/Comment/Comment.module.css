@@ -1,0 +1,15 @@
+.comment {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-primary);
+    padding: 10px;
+}
+
+.comment-content, .likes {
+    display: flex;
+    flex-direction: column;
+}
+
+.likes label {
+    margin-top: 5px;
+}
