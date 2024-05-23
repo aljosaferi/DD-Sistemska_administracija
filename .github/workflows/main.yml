@@ -24,8 +24,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ReactFinal/backend
-          file: Dockerfile
+          file: ReactFinal/backend/Dockerfile
           tags: aljosaferi/sistemska_administracija:backend-prod
 
       - name: Checkout frontend code
@@ -37,6 +36,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ReactFinal/frontend
-          file: Dockerfile.prod
+          file: ReactFinal/frontend/Dockerfile.prod
           tags: aljosaferi/sistemska_administracija:frontend-prod
