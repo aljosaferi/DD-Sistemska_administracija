@@ -15,9 +15,11 @@ jobs:
           path: ReactFinal/backend
 
       - name: Install
+        working-directory: ReactFinal/backend
         run: npm install
 
       - name: Run Typecheck
+        working-directory: ReactFinal/backend
         run: npm run typecheck
 
       - name: Login to Docker Hub
