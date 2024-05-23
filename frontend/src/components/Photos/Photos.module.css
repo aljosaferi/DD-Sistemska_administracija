@@ -1,0 +1,32 @@
+.top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.photos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+}
+
+.sort > *:not(:last-child) {
+    margin-right: 5px;
+}
+
+.sort-buttons {
+    padding: 5px;
+    border: 1px solid var(--color-primary);
+    border-radius: 3px;
+}
+
+.sort-buttons > *:not(:last-child) {
+    margin-right: 5px;
+}

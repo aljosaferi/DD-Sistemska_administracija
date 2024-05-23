@@ -1,0 +1,138 @@
+:root {
+  --title-primary: var(--color-primary);
+  --title-secondary: var(--color-primary-dark);
+
+  --color-primary: #ffffff;
+  --color-primary-hover: #b3b3b3;
+  --color-primary-active: #666666;
+  --color-secondary: #33ffad;
+  --color-secondary-hover: #00e68a;
+  --color-secondary-active: #00cc7a;
+  --color-danger: #ff4949;
+  --color-danger-hover: #e60000;
+  --color-danger-active: #c00000;
+
+  --color-primary-dark: #7e7e7e; 
+  --background-primary: #000000;
+  --background-secondary: #000000;
+
+  --border-primary: #353535;
+
+  --icon-primary: var(--color-primary);
+  --icon-primary-hover: var(--color-primary-hover);
+  --icon-primary-active: var(--color-primary-active);
+  --icon-secondary: var(--color-secondary);
+  --icon-secondary-hover: var(--color-secondary-hover);
+  --icon-secondary-active: var(--color-secondary-active);
+  --icon-danger: var(--color-danger);
+  --icon-danger-hover: var(--color-danger-hover);
+  --icon-danger-active: var(--color-danger-active);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-primary);
+  background-color: var(--background-primary);
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--title-primary);
+  display: inline;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3, h4, h5 {
+  font-size: 0.9rem;
+}
+
+h4, h5 {
+  font-weight: 400;
+}
+
+h5 {
+  color: var(--title-secondary);
+}
+
+li {
+  list-style-type: none;
+}
+
+li:hover {
+  cursor: pointer;
+}
+
+li label:hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+
+.icon {
+  color: var(--icon-primary);
+  font-size: 1.4em;
+}
+
+.icon:hover {
+  color: var(--icon-primary-hover);
+  cursor: pointer;
+}
+
+.icon:active {
+  color: var(--icon-primary-active);
+}
+
+.icon-secondary {
+  color: var(--icon-secondary);
+}
+
+.icon-secondary:hover {
+  color: var(--icon-secondary-hover);
+}
+
+.icon-secondary:active {
+  color: var(--icon-secondary-active);
+}
+
+button {
+  padding: 4px;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button label:hover {
+  cursor: pointer;
+}
+
+button:disabled {
+  border-color: var(--color-secondary);
+  background-color: var(--color-secondary);
+}
+
+button:disabled {
+  cursor: default;
+}
+
+button > *:not(:last-child) {
+  margin-right: 3px;
+}
