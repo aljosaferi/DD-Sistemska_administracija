@@ -1,0 +1,14 @@
+.App {
+    display: flex;
+    height: 100vh;
+    background-color: #EDE8F5;
+}
+
+.sidebarClass {
+    background-color: aliceblue;
+    flex: 20%;
+}
+
+.contentClass {
+    flex: 80%;
+}
