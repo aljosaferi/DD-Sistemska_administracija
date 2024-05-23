@@ -25,7 +25,7 @@ jobs:
         with:
           push: true
           context: ReactFinal/backend
-          file: ReactFinal/backend/Dockerfile
+          file: ./ReactFinal/backend/Dockerfile
           tags: aljosaferi/sistemska_administracija:backend-prod
 
       - name: Checkout frontend code
