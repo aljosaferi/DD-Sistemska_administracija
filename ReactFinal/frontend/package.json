@@ -44,5 +44,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "docker-dev-up": "docker-compose -f docker-compose.dev.yml up",
+  "docker-dev-down": "docker-compose -f docker-compose.dev.yml down"
 }
