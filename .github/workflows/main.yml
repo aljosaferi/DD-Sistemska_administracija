@@ -36,6 +36,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ReactFinal/frontend
-          file: Dockerfile.prod
+          file: ReactFinal/frontend/Dockerfile.prod
           tags: aljosaferi/sistemska_administracija:frontend-prod
