@@ -27,9 +27,6 @@ jobs:
           file: ReactFinal/backend/Dockerfile
           tags: aljosaferi/sistemska_administracija:backend-prod
 
-      - name: Checkout frontend code
-        uses: actions/checkout@v4
-
       - name: Build and push frontend-prod
         uses: docker/build-push-action@v5
         with:
