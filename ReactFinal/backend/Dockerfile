@@ -1,5 +1,5 @@
 #Uporabimo base-image alpine za Node.js
-FROM node:14-alpine
+FROM node:alpine
 
 #Za delovni direktorij nastavimo /app/backend
 WORKDIR /app/backend
