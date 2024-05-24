@@ -36,3 +36,8 @@ jobs:
           context: ReactFinal/frontend
           file: ReactFinal/frontend/Dockerfile.prod
           tags: aljosaferi/sistemska_administracija:frontend-prod
+
+      - name: Trigger Webhook on Success
+        if: steps.backend.outcome == 'success' && steps.frontend.outcome == 'success'
+        run: |
+          curl -X POST http://13.95.23.193:5000/webhook
