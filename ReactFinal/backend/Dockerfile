@@ -7,6 +7,7 @@ WORKDIR /app/backend
 #Kopiramo package.json in package-lock.json
 COPY package*.json ./
 #Naložimo odvisnosti(module)
+RUN npm cache clean --force
 RUN npm install
 #Kopiramo preostale datoteke
 COPY . .
