@@ -8,7 +8,8 @@
 
 .photoSelection {
     width: 70%;
-    border: 2px solid #212f64;
+    /*border: 2px solid #212f64;*/
+    border: 5px solid red;
     padding: 10px;
     box-sizing: border-box;
     max-width: 40%; /* Set a max-width */
