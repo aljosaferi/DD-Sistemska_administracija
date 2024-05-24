@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   backend:
+    container_name: backend-prod-c
     build: ./backend
     image: backend-prod-i
     ports:
