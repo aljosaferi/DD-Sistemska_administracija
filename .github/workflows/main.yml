@@ -37,5 +37,5 @@ jobs:
         with:
           push: true
           context: ReactFinal/frontend
-          file: ReactFinal/frontend/Dockerfile.prod
+          file: Dockerfile.prod
           tags: aljosaferi/sistemska_administracija:frontend-prod
