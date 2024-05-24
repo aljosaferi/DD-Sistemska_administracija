@@ -19,6 +19,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push backend-prod
+        id: backend
         uses: docker/build-push-action@v5
         with:
           push: true
@@ -30,6 +31,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and push frontend-prod
+        id: frontend
         uses: docker/build-push-action@v5
         with:
           push: true
@@ -38,6 +40,6 @@ jobs:
           tags: aljosaferi/sistemska_administracija:frontend-prod
 
       - name: Trigger Webhook on Success
-        if: steps.'Build and push backend-prod'.outcome == 'success' && steps.'Build and push frontend-prod'.outcome == 'success'
+        if: steps.backend.outcome == 'success' && steps.frontend.outcome == 'success'
         run: |
           curl -X POST http://13.95.23.193:5000/webhook
