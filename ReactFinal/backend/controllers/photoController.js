@@ -1,9 +1,7 @@
 var PhotoModel = require('../models/photoModel.js');
-var CommentModel = require('../models/commentModel.js');
-var ReplyModel = require('../models/replyModel.js');
+var UserModel = require('../models/userModel.js');
 
-const decay = require('decay');
-const hotScore = decay.hackerHot();
+var decay = require('decay'), hotScore = decay.redditHot();
 
 /**
  * photoController.js
@@ -11,41 +9,232 @@ const hotScore = decay.hackerHot();
  * @description :: Server-side logic for managing photos.
  */
 module.exports = {
+    uploadProfilePhoto: function(req, res){
+        var photo = new PhotoModel({
+			name : req.session.userId + "PFP",
+			path : "/images/"+req.file.filename,
+			postedBy : req.session.userId,
+            created : new Date(),
+            decayingScore : 0,
+            decayCycles : 0,
+			views : 0,
+			likes : 0,
+            description : "PFP",
+            numberOfReports : 0,
+            numberOfComments : 0,
+            isReported : false,
+            likedBy : [],
+            dislikedBy : [],
+            reportedBy : [],
+            isProfilePicture : true
+        });
 
-    /**
-     * photoController.list()
-     */
-    list: function (req, res) {
-        PhotoModel.find({$and: [
-            {'flaggedBy.4': { $exists: false }},
-            {'flaggedBy': { $nin: [req.session.userId]}}
-        ]})
-        .sort({ created: -1 })
+        console.log(req.file.filename)
+
+        photo.save(function (err, photo) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when creating photo',
+                    error: err
+                });
+            }
+
+            UserModel.updateOne({_id: req.session.userId}, {$set: { profilePicturePath: "/images/"+req.file.filename }}, function(err) {
+                if (err) {
+                    console.log('Error when updating user');
+                }
+            });
+    
+            return res.status(201).json(photo);
+            //return res.redirect('/photos');
+        });
+    },
+
+    topPhotos: function(req, res){
+        PhotoModel.find({ isReported: false, isProfilePicture: false })
         .populate('postedBy')
-        .exec(async function (err, photos) {
+        .exec(function (err, photos) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting photo.',
                     error: err
                 });
             }
-            let photosWithCommentCount = await Promise.all(photos.map(async photo => ({ 
-                ...photo._doc, 
-                commentCount: await CommentModel.countDocuments({ photo: photo._id }) 
-            })));
+            const now = new Date();
+            
+            photos.forEach(photo => {
+                let score;
+                
+                const hoursSincePosted = (now - photo.created) / 1000 / 60 / 60;
+                let likes = photo.likedBy.length;
+                let dislikes = photo.dislikedBy.length;
 
-            if(req.query.sortBy) {
-                if(req.query.sortBy === 'newest-first') {
-                    //Already handled with DB query
-                } else if(req.query.sortBy === 'hotness') {
-                    photosWithCommentCount = photos.map(photo => ({ 
-                        ...photo._doc, hotness: hotScore(photo.likes, new Date(photo.created))
-                    }));
-                    photosWithCommentCount.sort((a, b) => b.hotness - a.hotness);
+                if (hoursSincePosted < 1) {
+                    likes *= 10;
+                    dislikes *= 5;
                 }
+                else if (hoursSincePosted >= 1 && hoursSincePosted < 24) { 
+                    likes *= 5;
+                    dislikes *= 2;
+                }
+                score = likes - dislikes;
+
+                if (hoursSincePosted > 12) {
+                    const decayFactor = Math.floor(hoursSincePosted / 12);
+                    score *= Math.pow(0.75, decayFactor);
+                }
+                photo.decayingScore = score;
+            });
+
+            photos.sort((a, b) => b.decayingScore - a.decayingScore);
+            var data = [];
+            data.photos = photos;
+            //return res.render('photo/list', data);
+            return res.json(photos);
+        });
+    },
+
+    report: function(req, res){
+        var photoId = req.body.photoId;
+        var userId = req.body.userId;
+
+        console.log("REPORTING__________________________________________________________________");
+
+        PhotoModel.findById(photoId, function(err, photo){
+            if(err){
+                return res.status(500).json({
+                    message: 'Error when getting photo',
+                    error: err
+                });
             }
 
-            return res.json(photosWithCommentCount);
+            if(!photo){
+                return res.status(404).json({
+                    message: 'No such photo'
+                });
+            }
+
+            console.log(photo.numberOfReports);
+
+            if (!photo.reportedBy.includes(req.session.userId)) {
+                photo.numberOfReports++;
+                console.log(photo.numberOfReports);
+                photo.reportedBy.push(userId);
+            }
+            if (photo.numberOfReports > 10) {
+                photo.isReported = true;
+                console.log("REMOVING FROM VIEW");
+            }
+
+            photo.save(function(err){
+                if(err){
+                    return res.status(500).json({
+                        message: 'Error when updating photo',
+                        error: err
+                    });
+                }
+
+                return res.json(photo);
+            });
+            
+        });
+    },
+
+    likeDislike: function(req, res){
+        var likeDislikeValue = req.body.likeDislikeValue;
+        var photoId = req.body.photoId;
+        var userId = req.body.userId;
+
+        console.log("value " + likeDislikeValue);
+        console.log(photoId);
+        console.log(userId);
+        
+
+        PhotoModel.findById(photoId, function (err, photo) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting photo',
+                    error: err
+                });
+            }
+
+            if (!photo) {
+                return res.status(404).json({
+                    message: 'No such photo'
+                });
+            }
+            if (likeDislikeValue === 'like') {
+
+                console.log("Liking message");
+
+                if (!photo.likedBy.includes(userId)) {
+                    if (photo.dislikedBy.includes(userId)) {
+                        photo.dislikedBy.remove(userId);
+                        photo.likedBy.push(userId);
+                        photo.likes += 2;
+                    }
+                    else {
+                    photo.likedBy.push(userId);
+                    photo.likes++;
+                    }
+                }
+                else {
+                    photo.likedBy.remove(userId);
+                    photo.isLiked = false;
+                    photo.likes--;
+                }
+            } else if (likeDislikeValue === 'dislike') {
+                console.log("disliking");
+                if (!photo.dislikedBy.includes(userId)) {
+                    if (photo.likedBy.includes(userId)) {
+                        console.log("disliking and removing like");
+                        photo.likedBy.remove(userId);
+                        photo.dislikedBy.push(userId);
+                        photo.likes -= 2;
+                    }
+                    else {
+                    photo.dislikedBy.push(userId);
+                    photo.likes--;
+                    }
+                }
+                else {
+                    photo.dislikedBy.remove(userId);
+                    photo.likes++;
+                }
+            }
+            else {
+                console.log("Empty value");
+            }
+            
+            photo.save((err) => {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when updating photo',
+                        error: err
+                    });
+                }
+            
+                return res.json(photo);
+            });
+        });
+    },
+    /**
+     * photoController.list()
+     */
+    list: function (req, res) {
+        PhotoModel.find({ isReported: false, isProfilePicture: false})
+        .populate('postedBy')
+        .exec(function (err, photos) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting photo.',
+                    error: err
+                });
+            }
+            var data = [];
+            data.photos = photos;
+            //return res.render('photo/list', data);
+            return res.json(photos);
         });
     },
 
@@ -55,15 +244,7 @@ module.exports = {
     show: function (req, res) {
         var id = req.params.id;
 
-        PhotoModel.findOne({_id: id})
-        .populate('postedBy')
-        .populate({
-            path: 'comments',
-            populate: { 
-                path: 'postedBy'
-            }
-        })
-        .exec(function (err, photo) {
+        PhotoModel.findOne({_id: id}, function (err, photo) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting photo.',
@@ -87,14 +268,25 @@ module.exports = {
     create: function (req, res) {
         var photo = new PhotoModel({
 			name : req.body.name,
-            description: req.body.description,
 			path : "/images/"+req.file.filename,
 			postedBy : req.session.userId,
+            created : new Date(),
+            decayingScore : 0,
+            decayCycles : 0,
 			views : 0,
 			likes : 0,
+            description : req.body.description,
+            numberOfReports : 0,
+            numberOfComments : 0,
+            isReported : false,
             likedBy : [],
-            created: new Date()
+            dislikedBy : [],
+            reportedBy : [],
+            isProfilePicture : false
         });
+
+        console.log("NAME: " + req.body.name);
+        console.log("DESCRIPTION: " + req.file.description);
 
         photo.save(function (err, photo) {
             if (err) {
@@ -104,89 +296,16 @@ module.exports = {
                 });
             }
 
+            UserModel.updateOne({_id: req.session.userId}, {$inc: {numberOfPosts: 1}}, function(err) {
+                if (err) {
+                    console.log('Error when updating user');
+                }
+            });
+    
             return res.status(201).json(photo);
             //return res.redirect('/photos');
         });
     },
-
-    like: function (req, res) {
-        var id = req.params.id;
-
-        PhotoModel.findOne({_id: id}, function (err, photo) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting photo',
-                    error: err
-                });
-            }
-
-            if (!photo) {
-                return res.status(404).json({
-                    message: 'No such photo'
-                });
-            }
-
-            if (photo.likedBy.includes(req.session.userId)) {
-                photo.likes -= 1;
-                photo.likedBy.pull(req.session.userId);
-            } else {
-                photo.likes += 1;
-                photo.likedBy.push(req.session.userId);
-            }
-
-            photo.save(function (err, photo) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when updating photo',
-                        error: err
-                    });
-                }
-
-                return res.status(200).json({
-                    message: 'Photo liked/unliked successfully',
-                });
-            });
-        });
-    },
-
-    flag: function (req, res) {
-        var id = req.params.id;
-
-        PhotoModel.findOne({_id: id}, function (err, photo) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting photo',
-                    error: err
-                });
-            }
-
-            if (!photo) {
-                return res.status(404).json({
-                    message: 'No such photo'
-                });
-            }
-
-            if (photo.flaggedBy.includes(req.session.userId)) {
-                photo.flaggedBy.pull(req.session.userId);
-            } else {
-                photo.flaggedBy.push(req.session.userId);
-            }
-
-            photo.save(function (err, photo) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when updating photo',
-                        error: err
-                    });
-                }
-
-                return res.status(200).json({
-                    message: 'Photo flagged/unflagged successfully',
-                });
-            });
-        });
-    },
-
 
     /**
      * photoController.update()
@@ -209,8 +328,10 @@ module.exports = {
             }
 
             photo.name = req.body.name ? req.body.name : photo.name;
-            photo.description = req.body.description ? req.body.description : photo.description;
 			photo.path = req.body.path ? req.body.path : photo.path;
+			photo.postedBy = req.body.postedBy ? req.body.postedBy : photo.postedBy;
+			photo.views = req.body.views ? req.body.views : photo.views;
+			photo.likes = req.body.likes ? req.body.likes : photo.likes;
 			
             photo.save(function (err, photo) {
                 if (err) {
@@ -231,62 +352,16 @@ module.exports = {
     remove: function (req, res) {
         var id = req.params.id;
 
-        PhotoModel.findById(id)
-        .populate({
-            path: 'comments',
-            populate: [{ path: 'replies' }]
-        })
-        .populate('comments')
-        .populate('comments.replies')
-        .exec(function (err, photo) {
+        PhotoModel.findByIdAndRemove(id, function (err, photo) {
             if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting photo',
+                    message: 'Error when deleting the photo.',
                     error: err
                 });
             }
 
-            if (!photo) {
-                return res.status(404).json({
-                    message: 'No such photo'
-                });
-            }
-
-            ReplyModel.deleteMany({ comment: { $in: photo.comments.map(comment => comment._id) } }, function(err) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when deleting the replies.',
-                        error: err
-                    });
-                }
-
-                CommentModel.deleteMany({ photo: photo._id }, function(err) {
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'Error when deleting the comments.',
-                            error: err
-                        });
-                    }
-
-                    PhotoModel.findByIdAndRemove(id, function (err, photo) {
-                        if (err) {
-                            return res.status(500).json({
-                                message: 'Error when deleting the photo.',
-                                error: err
-                            });
-                        }
-        
-                        if (!photo) {
-                            return res.status(404).json({
-                                message: 'No such photo'
-                            });
-                        }
-            
-                        return res.status(204).json();
-                    });
-                });
-            });
-        });    
+            return res.status(204).json();
+        });
     },
 
     publish: function(req, res){

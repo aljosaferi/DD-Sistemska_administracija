@@ -3,32 +3,33 @@ var Schema   = mongoose.Schema;
 
 var photoSchema = new Schema({
 	'name' : String,
-	'description' : String,
 	'path' : String,
 	'postedBy' : {
 	 	type: Schema.Types.ObjectId,
 	 	ref: 'user'
 	},
-	'views' : Number,
+	'decayingScore' : Number,
+	'created' : Date,
 	'likes' : Number,
-	'likedBy' : [{
-	 	type: Schema.Types.ObjectId,
-	 	ref: 'user'
-	}],
-	'flaggedBy' : [{ 
-		type: mongoose.Schema.Types.ObjectId, 
-		ref: 'user' 
-	}],
-	'created' : Date
-}, {
-	toJSON: { virtuals: true },
-	toObject: { virtuals: true }
-});
+	'description' : String,
+	'numberOfComments' : Number,
+	'decayCycles' : Number,
 
-photoSchema.virtual('comments', {
-	ref: 'comment',
-	localField: '_id',
-	foreignField: 'photo'
+	'likedBy' : [{
+		type: Schema.Types.ObjectId,
+		ref: 'user'
+	}],
+	'dislikedBy' : [{
+		type: Schema.Types.ObjectId,
+		ref: 'user'
+	}],
+	'numberOfReports' : Number,
+	'isReported' : Boolean,
+	'reportedBy' : [{
+		type: Schema.Types.ObjectId,
+		ref: 'user'
+	}],
+	'isProfilePicture' : Boolean
 });
 
 module.exports = mongoose.model('photo', photoSchema);

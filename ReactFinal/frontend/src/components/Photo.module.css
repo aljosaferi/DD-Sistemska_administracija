@@ -1,0 +1,22 @@
+.photoDiv2 {
+    border: 4px solid #212f64;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.photoDiv2::-webkit-scrollbar {
+    display: none;
+}
+
+.photoHolder {
+    width: 100%;
+    height: 100%;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

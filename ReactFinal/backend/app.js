@@ -2,12 +2,11 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var csrf = require('csurf');
 var logger = require('morgan');
 
 // vključimo mongoose in ga povežemo z MongoDB
 var mongoose = require('mongoose');
-var mongoDB = "mongodb+srv://janvaliser:O2I2d0Ev0djiZq3J@cluster0.oj1ea4l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+var mongoDB = "mongodb+srv://aljosa:nK4hUAF0hQjLLBwT@reactdatabase.upbxcew.mongodb.net/?retryWrites=true&w=majority&appName=ReactDatabase";
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
@@ -17,8 +16,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRoutes');
 var photosRouter = require('./routes/photoRoutes');
-var commentRouter = require('./routes/commentRoutes');
-var replyRouter = require('./routes/replyRoutes');
+var commentsRouter = require('./routes/commentRoutes');
 
 var app = express();
 
@@ -45,16 +43,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(csrf({cookie: true})); ----CSRF
 app.use(express.static(path.join(__dirname, 'public')));
 
-//CSRF
-const csrfProtection = csrf({ cookie: true });
-app.use(csrfProtection);
-
-app.get("/getCSRFToken", (req, res) => {
-  res.json({ CSRFToken: req.csrfToken() });
-});
 /**
  * Vključimo session in connect-mongo.
  * Connect-mongo skrbi, da se session hrani v bazi.
@@ -78,8 +68,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/photos', photosRouter);
-app.use('/comments', commentRouter);
-app.use('/reply', replyRouter);
+app.use('/comments', commentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

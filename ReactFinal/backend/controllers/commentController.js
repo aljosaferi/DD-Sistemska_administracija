@@ -1,5 +1,6 @@
 var CommentModel = require('../models/commentModel.js');
-var ReplyModel = require('../models/replyModel.js');
+var UserModel = require('../models/userModel.js');
+var PhotoModel = require('../models/photoModel.js');
 
 /**
  * commentController.js
@@ -8,6 +9,23 @@ var ReplyModel = require('../models/replyModel.js');
  */
 module.exports = {
 
+
+    listByPhoto: function (req, res) {
+        var id = req.params.id;
+    
+        CommentModel.find({photoReference: id})
+        .populate('postedBy')
+        .exec(function (err, comments) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when getting comment.',
+                    error: err
+                });
+            }
+    
+            return res.json(comments);
+        });
+    },
     /**
      * commentController.list()
      */
@@ -52,18 +70,18 @@ module.exports = {
      * commentController.create()
      */
     create: function (req, res) {
-        if (!req.body.content) {
-            return res.status(400).send({ error: 'Content is required' });
-        } else if(!req.query.photoId) {
-            return res.status(400).send({ error: 'PhotoId is required' });
-        }
+
+        console.log("testing");
+        console.log(req.body.comment);
+        console.log(req.body.dateCreated);
+        console.log(req.body.userId);
+        console.log(req.body.photoId);
+
         var comment = new CommentModel({
-			content : req.body.content,
-			postedBy : req.session.userId,
-            photo : req.query.photoId,
-			likes : 0,
-			likedBy : [],
-            created: new Date()
+			body : req.body.comment,
+			dateCreated : req.body.dateCreated,
+            postedBy : req.body.userId,
+            photoReference : req.body.photoId
         });
 
         comment.save(function (err, comment) {
@@ -73,58 +91,27 @@ module.exports = {
                     error: err
                 });
             }
-            CommentModel.findById(comment._id)
-            .populate('postedBy')
-            .exec(function(err, comment) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when populating comment',
-                    error: err
-                });
-            }
 
-            return res.status(201).json(comment);
-            });
-        });
-    },
-
-    like: function (req, res) {
-        var id = req.params.id;
-
-        CommentModel.findOne({_id: id}, function (err, comment) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting comment',
-                    error: err
-                });
-            }
-
-            if (!comment) {
-                return res.status(404).json({
-                    message: 'No such comment'
-                });
-            }
-
-            if (comment.likedBy.includes(req.session.userId)) {
-                comment.likes -= 1;
-                comment.likedBy.pull(req.session.userId);
-            } else {
-                comment.likes += 1;
-                comment.likedBy.push(req.session.userId);
-            }
-
-            comment.save(function (err, comment) {
+            UserModel.updateOne({_id: req.body.userId}, {$inc: {numberOfComments: 1}}, function(err) {
                 if (err) {
-                    return res.status(500).json({
-                        message: 'Error when updating comment',
-                        error: err
+                    console.log('Error when updating user');
+                }
+            });
+
+            PhotoModel.findOne({_id: req.body.photoId}, function(err, photo) {
+                if (err || !photo) {
+                    console.log('Error when finding photo or photo does not exist');
+                } else {
+                    photo.numberOfComments += 1;
+                    photo.save(function(err) {
+                        if (err) {
+                            console.log('Error when saving photo');
+                        }
                     });
                 }
-
-                return res.status(200).json({
-                    message: 'Comment liked/unliked successfully',
-                });
             });
+
+            return res.status(201).json(comment);
         });
     },
 
@@ -148,7 +135,8 @@ module.exports = {
                 });
             }
 
-            comment.content = req.body.content ? req.body.content : comment.content;
+            comment.body = req.body.body ? req.body.body : comment.body;
+			comment.dateCreated = req.body.dateCreated ? req.body.dateCreated : comment.dateCreated;
 			
             comment.save(function (err, comment) {
                 if (err) {
@@ -169,47 +157,15 @@ module.exports = {
     remove: function (req, res) {
         var id = req.params.id;
 
-        CommentModel.findById(id)
-        .populate('replies')
-        .exec(function (err, comment) {
-            if(err) {
+        CommentModel.findByIdAndRemove(id, function (err, comment) {
+            if (err) {
                 return res.status(500).json({
-                    message: 'Error when getting comment.',
+                    message: 'Error when deleting the comment.',
                     error: err
                 });
             }
 
-            if (!comment) {
-                return res.status(404).json({
-                    message: 'No such comment'
-                });
-            }
-
-            ReplyModel.deleteMany({ comment: comment._id }, function(err) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when deleting the replies.',
-                        error: err
-                    });
-                }
-
-                CommentModel.findByIdAndRemove(id, function (err, comment) {
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'Error when deleting the comment.',
-                            error: err
-                        });
-                    }
-
-                    if (!comment) {
-                        return res.status(404).json({
-                            message: 'No such comment'
-                        });
-                    }
-        
-                    return res.status(204).json();
-                });
-            });
+            return res.status(204).json();
         });
     }
 };
