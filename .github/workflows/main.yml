@@ -29,12 +29,11 @@ jobs:
 
       - name: Checkout frontend code
         uses: actions/checkout@v4
-        with:
-          path: ReactFinal/frontend
 
       - name: Build and push frontend-prod
         uses: docker/build-push-action@v5
         with:
           push: true
+          context: ReactFinal/frontend
           file: ReactFinal/frontend/Dockerfile.prod
           tags: aljosaferi/sistemska_administracija:frontend-prod
