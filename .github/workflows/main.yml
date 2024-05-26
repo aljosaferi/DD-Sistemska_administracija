@@ -43,5 +43,3 @@ jobs:
         if: steps.backend.outcome == 'success' && steps.frontend.outcome == 'success'
         run: |
           curl -X POST http://13.95.23.193:5000/webhook
-          -H "Content-Type: application/json" \
-          -d '{"secret": "${{ secrets.WEBHOOK_SECRET }}"}'
