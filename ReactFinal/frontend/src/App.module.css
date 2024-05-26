@@ -1,12 +1,13 @@
 .App {
     display: flex;
     height: 100vh;
-    background-color: #EDE8F5;
+    /*background-color: #EDE8F5;*/
+    background-color: red;
 }
 
 .sidebarClass {
-    /*background-color: aliceblue;*/
-    background-color: red;
+    background-color: aliceblue;
+    /*background-color: red;*/
     flex: 20%;
 }
 
