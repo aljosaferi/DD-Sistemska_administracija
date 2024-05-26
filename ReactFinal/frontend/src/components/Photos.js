@@ -41,7 +41,7 @@ function Photos() {
     }
 
     return (
-        <div className="mainPhotoDiv" style={{ width: '100%', height: '100%', backgroundColor: '#EDE8F5'}}>
+        <div className="mainPhotoDiv" style={{ width: '100%', height: '100%', /*backgroundColor: '#EDE8F5'*/backgroundColor: 'red'}}>
             <select className={classes.sortDropdown} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
                 <option value="time">Sort by Time</option>
                 <option value="popularity">Sort by Popularity</option>
