@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - aljosa
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push backend-prod
+        id: backend
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: ReactFinal/backend
+          file: ReactFinal/backend/Dockerfile
+          tags: aljosaferi/sistemska_administracija:backend-prod
+
+      - name: Checkout frontend code
+        uses: actions/checkout@v4
+
+      - name: Build and push frontend-prod
+        id: frontend
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          context: ReactFinal/frontend
+          file: ReactFinal/frontend/Dockerfile.prod
+          tags: aljosaferi/sistemska_administracija:frontend-prod
+
+      - name: Trigger Webhook on Success
+        if: steps.backend.outcome == 'success' && steps.frontend.outcome == 'success'
+        run: |
+          curl -X POST http://13.95.23.193:5000/webhook \
+          -H "Content-Type: application/json" \
+          -d '{"secret": "${{ secrets.WEBHOOK_SECRET }}"}'
