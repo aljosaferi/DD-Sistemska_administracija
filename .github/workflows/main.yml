@@ -25,8 +25,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ReactFinal/backend
-          file: ReactFinal/backend/Dockerfile
+          context: DD-Spletno-Programiranje/backend
+          file: DD-Spletno-Programiranje/backend/Dockerfile
           tags: aljosaferi/sistemska_administracija:backend-prod
 
       - name: Checkout frontend code
@@ -37,8 +37,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          context: ReactFinal/frontend
-          file: ReactFinal/frontend/Dockerfile.prod
+          context: DD-Spletno-Programiranje/frontend
+          file: DD-Spletno-Programiranje/frontend/Dockerfile.prod
           tags: aljosaferi/sistemska_administracija:frontend-prod
 
       - name: Trigger Webhook on Success
