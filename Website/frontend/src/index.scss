@@ -1,0 +1,29 @@
+@import './resets';
+@import './variables';
+
+@font-face {
+    font-family: 'Soliden';
+    src: url('../public/fonts/SolidenTrial-BoldExpanded.ttf');
+}
+
+@font-face {
+    font-family: 'Mona Sans';
+    src: url('../public/fonts/Mona-Sans-Regular.otf');
+}
+
+body {
+    background-color: $background-color-primary;
+    font-family: 'Mona Sans';
+}
+
+h1 {
+    color: $color-secondary;
+    font-size: 1.2rem;
+    font-family: 'Soliden';
+}
+
+h2 {
+    color: $color-secondary;
+    font-weight: normal;
+    font-size: 1rem;
+}
