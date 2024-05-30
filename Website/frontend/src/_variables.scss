@@ -7,7 +7,7 @@ $blue-third: #00B4D8;
 $blue-fourth: #90E0EF;
 $blue-fifth: #CAF0F8; */
 
-/*$blue-first: darken(adjust-hue(#03045E, 140deg), 10%);*/ $blue-first: blue;
+$blue-first: darken(adjust-hue(#03045E, 140deg), 10%);
 $blue-second: darken(adjust-hue(#0077B6, 140deg), 10%);
 $blue-third: darken(adjust-hue(#00B4D8, 160deg), 10%);
 $blue-fourth: darken(adjust-hue(#90E0EF, 160deg), 10%);
@@ -20,7 +20,8 @@ $red-fourth: adjust-hue(#90E0EF, 120deg);
 $red-fifth: adjust-hue(#CAF0F8, 120deg); */
 
 $background-color-primary: #ffffff;
-$background-color-secondary: $blue-second;
+/*$background-color-secondary: $blue-second;*/
+$background-color-secondary: blue;
 
 $blue-second-hover: darken($blue-second, 2.5%);
 $blue-third-hover: darken($blue-third, 2.5%);
