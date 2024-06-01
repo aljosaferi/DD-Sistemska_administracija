@@ -26,7 +26,7 @@ jobs:
         with:
           push: true
           context: /backend
-          file: /backend/Dockerfile
+          file: /Dockerfile
           tags: aljosaferi/sistemska_administracija:backend-prod
 
       - name: Checkout frontend code
@@ -38,7 +38,7 @@ jobs:
         with:
           push: true
           context: /frontend
-          file: /frontend/Dockerfile.prod
+          file: /Dockerfile.prod
           tags: aljosaferi/sistemska_administracija:frontend-prod
 
       - name: Trigger Webhook on Success
