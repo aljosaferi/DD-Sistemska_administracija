@@ -1,0 +1,93 @@
+@import './resets';
+@import './variables';
+
+@font-face {
+    font-family: 'Soliden';
+    src: url('../public/fonts/SolidenTrial-BoldExpanded.ttf');
+}
+
+@font-face {
+    font-family: 'Mona Sans';
+    src: url('../public/fonts/Mona-Sans-Regular-Sloveene.otf');
+}
+
+body {
+    background-color: $background-color-primary;
+    font-family: 'Mona Sans';
+}
+
+h1 {
+    color: $color-secondary;
+    font-size: 1.2rem;
+    font-family: 'Soliden';
+}
+
+h2 {
+    color: $color-secondary;
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+input {
+    width: 100%;
+    padding: 1rem;
+    border: 3px solid $blue-second;
+    border-radius: 10px;
+
+    font-family: 'Mona Sans';
+    font-size: 1.1rem;
+
+    &:focus {
+        border: 3px solid $blue-second-active;
+        outline-color: $blue-second-active;
+    }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px lighten($blue-fifth, 15%) inset !important;
+}
+
+textarea {
+    height: 100% !important;
+    width: 100% !important;
+    resize: none;
+    padding: 1rem;
+
+    font-family: 'Mona Sans';
+    font-size: 1.1rem;
+
+    border: 3px solid $blue-second;
+    border-radius: 10px;
+
+    &:focus {
+        border: 3px solid $blue-second-active;
+        outline-color: $blue-second-active;
+    }
+}
+
+.leaflet-bottom.leaflet-right {
+    display: none;
+}
+
+.leaflet-touch .leaflet-bar a {
+    background-color: $blue-second;
+    color: $color-secondary;
+    
+    &:hover {
+        background-color: $blue-second-hover;
+    }
+    &:active {
+        background-color: $blue-second-active;
+    }
+}
+
+.leaflet-pane {
+    z-index: 1 !important;
+  }

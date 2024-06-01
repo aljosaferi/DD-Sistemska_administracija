@@ -1,0 +1,47 @@
+@import '../../variables';
+
+.container {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url("./layered-waves-haikei.svg");
+    
+    width: 70vw;
+    max-width: 600px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 15px;
+    overflow: hidden;
+
+    .header {
+        display: flex;
+        flex-direction: row;
+
+        & > div {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 1.2rem;
+
+            color: $color-secondary;
+
+            &:not(.current) {
+                background-color: $blue-second;
+                &:hover {
+                    cursor: pointer;
+                    background-color: $blue-second-hover;
+                }
+
+                &:active {
+                    background-color: $blue-second-active;
+                }
+            }
+
+            &.current {
+                color: $blue-second;
+            }
+        }
+    }
+}

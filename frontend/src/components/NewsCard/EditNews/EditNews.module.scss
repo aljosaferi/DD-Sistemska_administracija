@@ -1,0 +1,53 @@
+@import '../../../variables';
+
+.container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: 50dvh;
+    width: 60vw;
+    gap: 5%;
+
+    border-radius: 30px;
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        h1 {
+            color: $color-primary;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        i {
+            color: $blue-second;
+            font-size: 2rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .title {
+        input {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    }
+
+    .content {
+        height: 100%;
+    }
+
+    .submit {
+        display: flex;
+        justify-content: end;
+
+        i {
+            margin-left: 0.5rem;
+        }
+    }
+}
