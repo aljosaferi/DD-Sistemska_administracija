@@ -1,0 +1,31 @@
+$color-primary: #000000;
+$color-secondary: #ffffff;
+
+/* $blue-first: #03045E;
+$blue-second: #0077B6;
+$blue-third: #00B4D8;
+$blue-fourth: #90E0EF;
+$blue-fifth: #CAF0F8; */
+
+$blue-first: darken(adjust-hue(#03045E, 140deg), 10%);
+$blue-second: darken(adjust-hue(#0077B6, 140deg), 10%);
+$blue-third: darken(adjust-hue(#00B4D8, 160deg), 10%);
+$blue-fourth: darken(adjust-hue(#90E0EF, 160deg), 10%);
+$blue-fifth: darken(adjust-hue(#CAF0F8, 160deg), 10%);
+
+$blue-second-disabled: desaturate(lighten($blue-second, 30%), 40%);
+
+/* $red-first: adjust-hue(#03045E, 120deg);
+$red-second: adjust-hue(#0077B6, 120deg);
+$red-third: adjust-hue(#00B4D8, 120deg);
+$red-fourth: adjust-hue(#90E0EF, 120deg);
+$red-fifth: adjust-hue(#CAF0F8, 120deg); */
+
+$background-color-primary: #ffffff;
+$background-color-secondary: $blue-second;
+
+$blue-second-hover: darken($blue-second, 2.5%);
+$blue-third-hover: darken($blue-third, 2.5%);
+
+$blue-second-active: darken($blue-second-hover, 2.5%);
+$blue-third-active: darken($blue-third-hover, 2.5%);

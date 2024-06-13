@@ -1,0 +1,135 @@
+@import '../../variables';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.first {
+    position: relative;
+    z-index: -1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100dvh;
+    width: 100%;
+
+    h1 {
+        font-size: 6rem;
+        color: $color-primary;
+
+        @media (max-width: 1350px) {
+            font-size: 5rem;
+        }
+
+        @media (max-width: 650px) {
+            font-size: 3rem;
+        }
+    }
+
+    .logo-text {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin-left: 10%;
+    
+       .second-header {
+            background: linear-gradient(45deg, $blue-third 50%,  $blue-first);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: $blue-second;
+            margin-left: 16rem;
+            width: fit-content;
+
+            @media (max-width: 1350px) {
+                margin-left: 10rem;
+            }
+
+            @media (max-width: 1000px) {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 1350px) {
+            margin-left: 5%;
+        }
+
+        @media (max-width: 1000px) {
+            width: 100%;
+            margin-left: 0;
+            align-items: center;
+
+            > div {
+                justify-content: center;
+            }
+        }
+    }
+
+    .image-container {
+        position: relative;
+        z-index: -2;
+        width: 50%;
+        width: 900px;
+        img {
+            position: absolute;
+            top: -450px;
+            width: 1200px;
+        }
+
+        @media (max-width: 1000px) {
+            display: none;
+        }
+    }
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.wave svg {
+    position: relative;
+    display: block;
+    width: calc(126% + 1.3px);
+    height: 61px;
+}
+
+.wave .shape-fill {
+    fill: $blue-fifth;
+}
+
+.news {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 100dvh;
+    width: 100%;
+
+    background-color: $blue-fifth;
+
+    h1 {
+        margin-top: 15vh;
+        margin-left: 5%;
+        font-size: 5rem;
+        color: $color-primary;
+
+        @media (max-width: 1350px) {
+            font-size: 4rem;
+        }
+
+        @media (max-width: 650px) {
+            font-size: 3rem;
+        }
+    }
+}
+
+

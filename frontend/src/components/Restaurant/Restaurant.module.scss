@@ -1,0 +1,41 @@
+@import '../../variables';
+
+.restaurant-main {
+    width: 100%;
+    height: 93vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    .restaurant-holder {
+        width: 70%;
+        border: 3px solid $blue-second;
+        display: flex;
+        flex-direction: column;
+
+        .picture-holder {
+            width: 100%;
+            height: 30%;
+            border-bottom: 3px solid $blue-second;
+        }
+        .content-holder {
+            width: 100%;
+            height: 70%;
+            padding: 10px;
+
+            .restaurant-title {
+                font-weight: bold;
+                font-size: 3rem;
+                padding-top: 10px;
+                display: flex;
+                justify-content: center;
+                color: $color-primary;
+            }
+            .restaurant-content {
+                font-size: 1.5rem;
+                padding-top: 10px;
+            }
+        }
+    }
+}

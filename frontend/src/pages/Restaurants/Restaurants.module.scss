@@ -1,0 +1,209 @@
+@import '../../variables';
+
+.container {
+    padding: 5vh 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .search-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 800px;
+        margin: 2rem 0;
+        gap: 1rem;
+
+
+        @media(max-width: 1350px) {
+            width: 700px;
+            margin-left: 250px;
+        }
+
+        @media(max-width: 1000px) {
+            width: 80%;
+            margin-left: 0;
+        }
+
+        input[type=text] {
+            height: 3rem;
+        }
+    }
+
+    .main-content {
+        display: flex;
+        width: 100%;
+    
+        .filter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            width: calc(50% - 400px);
+
+            .filters {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                margin: 0 2rem 2rem 2rem;
+                padding: 1rem;
+                border: 2px solid $blue-second;
+                border-radius: 8px;
+                gap: 0.7rem;
+
+                h2 {
+                    color: $color-primary;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    margin-right: auto;
+                    margin-bottom: 0.5rem;
+                }
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+            }
+
+            @media(max-width: 1350px) {
+                width: 250px;
+            }
+
+            @media (max-width: 1000px) {
+                display: none;
+            }
+        }
+    
+        .restaurants {
+            display: flex;
+            flex-direction: column;
+            gap: min(3dvh, 30px);
+            width: 800px;
+
+            @media(max-width: 1350px) {
+                width: 700px;
+            }
+
+            @media(max-width: 1000px) {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            justify-content: center;
+        }
+    }
+
+    @media(max-width: 1350px) {
+        align-items: start;
+    }
+
+    @media(max-width: 1000px) {
+        align-items: center;
+    }
+}
+
+.filters {
+    @media (max-width: 1000px) {
+        display: none;
+    }
+}
+
+.filter-button {
+    display: none;
+    position: relative;
+    border: 3px solid $blue-second;
+    border-radius: 10px;
+    padding: 0.6rem;
+    @media (max-width: 1000px) {
+        display: flex;
+    }
+
+
+    &:hover {
+        .filters {
+            border: 2px solid $blue-second;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 300px;
+            position: absolute;
+            top: 1.5rem;
+            background-color: $color-secondary;
+            z-index: 1;
+            padding: 1rem;
+
+            h2 {
+                color: $color-primary;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    margin-right: auto;
+                    margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    i {
+        font-size: 1.5rem;
+        color: $blue-second;
+    }
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 2.5em; 
+    height: 1.25em; 
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $blue-fifth;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1em;
+    width: 1em;
+    left: 0.125em;
+    bottom: 0.125em;
+    background-color: $color-secondary;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: $blue-second;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(1.2em);
+    -ms-transform: translateX(1.2em);
+    transform: translateX(1.2em);
+}
+
+.slider.round {
+    border-radius: 2.25em; 
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
