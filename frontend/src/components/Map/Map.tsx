@@ -296,7 +296,7 @@ function Map() {
 
       {displayTopRestaurants ?
         <div className={styles['restaurants']}>
-          <div className={styles['restaurants-header']}>Top Restavracije</div>
+          <div className={styles['restaurants-header']}>TO RESTAVRACIJE</div>
           {restaurants.map((restaurant) => (
             <div key={restaurant._id} className={styles['restaurant-div']} onClick={() => displayRestaurant(restaurant)}>
               <h3>{restaurant.name}</h3>
