@@ -1,5 +1,5 @@
 FROM node:alpine AS builder
-ENV NODE_ENV=development npm i
+ENV NODE_ENV=development
 
 # Add a work directory
 WORKDIR /app
