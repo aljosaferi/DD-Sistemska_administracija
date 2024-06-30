@@ -72,7 +72,6 @@ module.exports = {
      */
     update: function (req, res) {
         var id = req.params.id;
-
         TagModel.findOne({_id: id})
         .then(tag => {
             if (!tag) {
@@ -85,7 +84,7 @@ module.exports = {
 			
             tag.save()
             .then(tag => {
-                return res.json(tag);
+                return res.status(201).json(tag);
             })
             .catch(err => {
                 return res.status(500).json({
@@ -115,7 +114,6 @@ module.exports = {
                     message: 'No such tag'
                 });
             }
-            console.log(tag)
             return res.status(204).json();
         })
         .catch(err =>{

@@ -47,16 +47,6 @@ function checkOwnership(req, res, next){
     .catch(error => {
         res.status(500).json({ error: 'Server error' });
     });
-
-    try {
-        if(req.user.userType === "admin" || req.user.restaurants.includes(req.body.restaurantId)) {
-            next();
-        } else {
-            res.status(401).json({ error: "You must be the owner of this restaurant to edit it" });
-        }
-    } catch(error) {
-        res.status(500).json({ error: 'Server error' });
-    }
 }
 
 //GET
