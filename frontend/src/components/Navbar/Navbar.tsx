@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react' 
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 import { Turn as Hamburger } from 'hamburger-react';
 
@@ -33,7 +33,8 @@ function Navbar() {
     const openAuthenticate = () => setIsAuthenticateOpen(true);
     const closeAuthenticate = () => setIsAuthenticateOpen(false);
 
-    const userContext = useContext(UserContext); 
+    const userContext = useContext(UserContext);
+    const navigate = useNavigate(); 
 
     return (
         <>
@@ -89,8 +90,18 @@ function Navbar() {
             <div className={styles['user']}>
                 {userContext.user ?
                     <div className={styles['user-profile']}>
-                        <img src={`http://${process.env.REACT_APP_URL}:3001${userContext.user.profilePhoto.imagePath}`} alt="Avatar"/>
-                        <h2>{userContext.user.username}</h2>    
+                        <div className={styles['image-username']} onClick={() => navigate('/myProfile')}>
+                            <img src={`http://${process.env.REACT_APP_URL}:3001${userContext.user.profilePhoto.imagePath}`} alt="Avatar"/>
+                            <h2>{userContext.user.username}</h2>
+                        </div>
+                        <motion.div
+                            whileHover={{scale: 1.05}}
+                            whileTap={{ scale: 0.9 }}
+                            className={styles['logout-container-top']}
+                            onClick={() => {userContext.setUserContext(null); navigate('/')}}
+                        >
+                            <i className="fa-solid fa-right-from-bracket"/>
+                        </motion.div>    
                     </div>
                 :
                     <Button type="secondary" onClick={openAuthenticate}>Prijava</Button>
@@ -169,7 +180,7 @@ function Navbar() {
                     <div className={styles['bottom']}>
                         {userContext.user ?
                             <div className={styles['user-profile']}>
-                                <div className={styles['username-photo']}>
+                                <div className={styles['username-photo']} onClick={() => {navigate('/myProfile'); closeMenu();}}>
                                     <img src={`http://${process.env.REACT_APP_URL}:3001${userContext.user.profilePhoto.imagePath}`} alt="Avatar"/>
                                     <h2>{userContext.user.username}</h2>    
                                 </div>
@@ -177,7 +188,7 @@ function Navbar() {
                                     whileHover={{scale: 1.05}}
                                     whileTap={{ scale: 0.9 }}
                                     className={styles['logout-container']}
-                                    onClick={() => userContext.setUserContext(null)}
+                                    onClick={() => {userContext.setUserContext(null); ; navigate('/'); }}
                                 >
                                     <i className="fa-solid fa-right-from-bracket"/>
                                 </motion.div>

@@ -91,11 +91,20 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 0.5rem;
 
         img {
             width: 2.6rem;
             border-radius: 50%;
+        }
+
+        &:hover .logout-container-top {
+            visibility: visible;
+            width: 1rem; /* Adjust based on the size of your logout icon */
+        }
+
+        &:hover .image-username {
+            transform: translateX(-1rem); /* Adjust the value based on the size of your logout icon */
+            transition: transform 0.3s ease;
         }
     }
 }
@@ -253,6 +262,10 @@
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
 
 
@@ -287,5 +300,30 @@
         .mobile-logo-image {
             display: flex;
         }
+    }
+}
+
+.image-username {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.logout-container-top {
+    margin-top: 2px;
+    color: $background-color-primary;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden; /* Ensure content does not overflow when width is 0 */
+    transition: width 0.3s ease, visibility 0.3s ease;
+    
+    &:hover {
+        cursor: pointer;
     }
 }

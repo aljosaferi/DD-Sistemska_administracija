@@ -1,41 +1,488 @@
 @import '../../variables';
 
-.restaurant-main {
-    width: 100%;
-    height: 93vh;
+.container {
     display: flex;
-    justify-content: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    flex-direction: column;
+    align-items: center;
+    margin: 5rem 0;
+}
 
-    .restaurant-holder {
-        width: 70%;
-        border: 3px solid $blue-second;
+.restaurant {
+    width: 80%;
+    border: 3px solid $blue-second;
+    border-radius: 20px;
+    overflow: hidden;
+
+    .top {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 3px solid $blue-second;
+
+        .image-container {
+            width: 25%;
+            overflow: hidden;
+            border-right: 3px solid $blue-second;
+
+            img {
+                width: 100%;
+                aspect-ratio: 1/1;
+                display: block;
+            }
+        }
+    }
+
+    .bottom {
+        display: flex;
+        width: 100%;
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            gap: 1dvh;
+            width: 25%;
+            border-right: 3px solid $blue-second;
+        }
+    }
+}
+
+.right {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3vw;
+
+    .text-container {
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
 
-        .picture-holder {
-            width: 100%;
-            height: 30%;
-            border-bottom: 3px solid $blue-second;
+        h1 {                  
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 3vw;
+            color: $blue-second;
         }
-        .content-holder {
-            width: 100%;
-            height: 70%;
-            padding: 10px;
 
-            .restaurant-title {
-                font-weight: bold;
-                font-size: 3rem;
-                padding-top: 10px;
-                display: flex;
-                justify-content: center;
-                color: $color-primary;
+        h2 {
+            font-size: 1.5vw;
+            color: $color-primary;
+        }
+    }
+
+    &:hover .delete-restaurant {
+        display: flex;
+    }
+}
+
+.rating-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5vw;
+    
+    .stars-container {
+        color: lightgray;
+        display: flex;
+        position: relative;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 0.1rem;
+        
+        i {
+            font-size: 2.25vw;
+
+            &.checked {
+                color: $blue-second;
             }
-            .restaurant-content {
-                font-size: 1.5rem;
-                padding-top: 10px;
+
+            &.un-checked {
+                color: $blue-fifth;
+            }
+
+            &.partialy-checked {
+                background: linear-gradient(90deg, $blue-second var(--partial-percentage), $blue-fifth calc(100% - var(--partial-percentage)));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                padding: 2%;
+            }
+
+            @media(max-width: 350px) {
+                font-size: 1rem;
+            }
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            background-color: $color-secondary;
+            border: 2px solid $blue-second;
+            color: $color-primary;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 0.3rem;
+            border-radius: 6px;
+        
+            position: absolute;
+            top: 115%;
+
+
+            &::before, &::after {
+                content: " ";
+                position: absolute;
+                bottom: 100%; 
+                left: 50%;
+                border-width: 5px;
+                border-style: solid;
+            }
+        
+            &::before {
+                margin-left: -7px;
+                border-width: 7px;
+                border-color: transparent transparent $blue-second transparent; 
+            }
+        
+            &::after {
+                margin-left: -5px; 
+                border-color: transparent transparent $color-secondary transparent;
+            }
+
+            i {
+                margin-left: 0.1rem;
+                color: $blue-second;
+                font-size: 2rem;
+            }
+        }
+          
+        &:hover .tooltip-text {
+            visibility: visible;
+        }
+    }
+
+    .rating-count {
+        margin-top: 0.3vw;
+        color: lightgray;
+        font-size: 1.5vw;
+
+        @media(max-width: 350px) {
+            font-size: 1rem;
+        }
+    }
+}
+
+.working-hours-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1dvh;
+    padding: 2vw;
+    width: 100%;
+    border-bottom: 3px solid $blue-second;
+
+    h1 {
+        color: $blue-second;
+        font-size: 1.5vw;
+    }
+
+    .working-hours {
+        font-size: 1.1vw;
+        div {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+.menus-container {
+    display: flex;
+    width: 75%;
+    flex-direction: column;
+    gap: 1dvh;
+    padding: 2vw;
+    background-color: lighten($blue-fifth, 15%); 
+
+    h1 {
+        font-size: 2v;
+        color: $blue-second;
+        font-size: 1.5vw;
+    }
+    .menus {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 48.5% 48.5%;
+        gap: 20px;
+
+        .menu {
+            padding: 1.2vw;
+            border: 3px solid $blue-second;
+            border-radius: 10px;
+            background-color: $color-secondary;
+            position:relative;
+
+            strong {
+                @media(max-width: 650px) {
+                    font-size: 0.8rem;
+                }
+            }
+
+            .side-dishes {
+                display: flex;
+                flex-direction: column;
+                font-size: 1rem;
+
+                @media(max-width: 650px) {
+                    font-size: 0.7rem;
+                }
+            }
+
+            &:hover .remove-menu-button {
+                display: flex;
+            }
+        }
+    
+        @media(max-width: 1000px) {
+            grid-template-columns: 100%;
+            gap: 1.5%;
+        }
+    }
+}
+
+.rating-all {
+    padding: 2vw;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    h1 {
+        color: $blue-second;
+    }
+
+    .rating-and-stars {
+
+        .rating-top {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 4px;
+
+            .rating-score {
+                font-weight: bold;
+                height: 3.5rem;
+                width: 4.6rem;
+                font-size: 3.5rem;
+            }
+
+            .rating-stars {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: end;
+                font-size: 7px;
+            }
+
+            .rating-bars {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2px;
+                position: relative;
+
+                .rating-bar {
+                    width: 100%;
+                    height: 6px;
+                    border-radius: 10px;
+                    background: linear-gradient(to right, $blue-second var(--percentage), transparent var(--percentage)),
+                                linear-gradient(to right, $blue-fifth 0%,  $blue-fifth 100%);
+                }
+
+                .tooltip-text {
+                    visibility: hidden;
+                    background-color: $color-secondary;
+                    border: 2px solid $blue-second;
+                    color: $color-primary;
+                    font-size: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+                    padding: 0.3rem;
+                    border-radius: 6px;
+                
+                    position: absolute;
+                    top: 115%;
+
+                    > div {
+                        display: flex;
+
+                        .tooltip-number {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: end;
+                            width: 1rem;
+                        }
+                    }
+        
+        
+                    &::before, &::after {
+                        content: " ";
+                        position: absolute;
+                        bottom: 100%; 
+                        left: 50%;
+                        border-width: 5px;
+                        border-style: solid;
+                    }
+                
+                    &::before {
+                        margin-left: -7px;
+                        border-width: 7px;
+                        border-color: transparent transparent $blue-second transparent; 
+                    }
+                
+                    &::after {
+                        margin-left: -5px; 
+                        border-color: transparent transparent $color-secondary transparent;
+                    }
+        
+                    i {
+                        margin-left: 0.1rem;
+                        color: $blue-second;
+                        font-size: 1rem;
+                    }
+                }
+                  
+                &:hover .tooltip-text {
+                    visibility: visible;
+                }
+            }
+        }
+
+        .rating-bottom {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .rating-of {
+                width: 4.6rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
             }
         }
     }
 }
+
+.user-rate {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    font-size: 1.5rem;
+
+    .user-rate-stars {
+        display: flex;
+        flex-direction: row;
+
+        i {
+            font-size: 2.5vw;
+        }
+    }
+}
+
+.menus-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.add-menu-button {
+    i {
+        color: $blue-second;
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.remove-menu-button {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    color: $blue-second;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.user-rate-stars{
+    i {
+        color: lightgray;
+                
+        &.checked {
+            color: $blue-second;
+        }
+
+        &.un-checked {
+            color: $blue-fifth;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.delete-restaurant {
+    display: none;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: $blue-second;
+
+    &:hover {
+        cursor: pointer;
+    };
+
+    i {
+        font-size: 2rem;
+    }
+}
+
+.editable-image-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer; 
+  }
+  
+  .editable-image-container:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+  }
+  
+  .editable-image-container:hover::before {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    font-size: 90px;
+    color: white;
+    z-index: 2;
+  }

@@ -36,7 +36,7 @@ function EditNews({ handleClose } : EditNewsProps) {
             </div>
             <div className={styles['submit']}>
                 <Button type="primary" padding={'0.7rem'} disabled={!isEdited}>
-                    Sharni spremembe
+                    Shrani spremembe
                     <i className="fa-solid fa-check"/>
                 </Button>
             </div>

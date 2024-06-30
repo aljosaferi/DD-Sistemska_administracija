@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import styles from './NewsCard.module.scss';
 import Modal from '../Modal/Modal';
 import EditNews from './EditNews/EditNews';
 import DeletePrompt from '../DeletePrompt/DeletePrompt';
+import { UserContext } from '../../userContext';
 
 function NewsCard() {
     const[isOpenEdit, setIsOpenEdit] = useState(false);
     const[isOpenDelete, setIsOpenDelete] = useState(false);
+    const userContext = useContext(UserContext);
 
     const openEdit = () => setIsOpenEdit(true);
     const closeEdit = () => setIsOpenEdit(false);
@@ -23,23 +25,25 @@ function NewsCard() {
                     Novo
                 </div>
 
-                <div className={styles['edit']}>
-                    <motion.div
-                        whileHover={{scale: 1.05}}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={openEdit}
-                    >
-                        <i className="fa-solid fa-pen"/>
-                    </motion.div>
-                    <motion.div
-                        className={styles['delete-container']}
-                        whileHover={{scale: 1.05}}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={openDelete}
-                    >
-                        <i className="fa-solid fa-trash-can"/> 
-                    </motion.div>
-                </div>
+                {userContext.user?.userType === "admin" &&
+                    <div className={styles['edit']}>
+                        <motion.div
+                            whileHover={{scale: 1.05}}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={openEdit}
+                        >
+                            <i className="fa-solid fa-pen"/>
+                        </motion.div>
+                        <motion.div
+                            className={styles['delete-container']}
+                            whileHover={{scale: 1.05}}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={openDelete}
+                        >
+                            <i className="fa-solid fa-trash-can"/> 
+                        </motion.div>
+                    </div>
+                }
 
                 <div className={styles['title']}>
                     <h1>Lorem Ipsum</h1>
@@ -72,7 +76,7 @@ function NewsCard() {
             <AnimatePresence>
                 {isOpenDelete ?
                 <Modal handleClose={closeDelete}>
-                    <DeletePrompt handleClose={closeDelete} heading="Ali ste prepričani, da želite izbrisati novico?" content="Tega dejanja ni mogoče razveljaviti. "/>
+                    <DeletePrompt handleClose={closeDelete} handleConfirm={closeDelete} heading="Ali ste prepričani, da želite izbrisati novico?" content="Tega dejanja ni mogoče razveljaviti. "/>
                 </Modal>
                 :
                 null

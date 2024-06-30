@@ -17,6 +17,9 @@
         width: 20%;
         background-color: #D9D9D9;
         overflow-y: auto;
+/*         border-top-left-radius: 10px;
+        border-top-right-radius: 10px; */
+        border-radius: 10px;
 
         .restaurants-header {
             background-color: $blue-second;
@@ -24,6 +27,9 @@
             text-align: center;
             padding: 10px;
             font-size: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 2;
         }
         .restaurant-div {
             background-color: white;
@@ -162,3 +168,164 @@
   }
 
 
+.sidebar {
+    background-color: $color-secondary;
+    position: absolute;
+    top: 25vh;
+    left: 0;
+    width: 30vh;
+    height: 60%;
+    border-top: 3px solid $blue-second;
+    border-right: 3px solid $blue-second;
+    border-bottom: 3px solid $blue-second;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 2 !important;
+
+    .sidebar-title {
+        display: flex;
+        border-top-right-radius: 10px;
+        height: 8%;
+        border-bottom: 2px solid $blue-second;
+        justify-content: center;
+
+        h1 {
+            padding-top: 10px;
+            color: $blue-second;
+        }
+    }
+}
+
+.show-sidebar {
+    border: 2px solid $blue-second;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    right: -25px;
+    width: 50px;
+    height: 50px;
+    background-color: $color-secondary;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $blue-second;
+}
+.sidebar-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.switch-container {
+    padding-right: 5px;
+}
+.switch-div {
+    display: flex;
+    justify-content: left;
+    padding: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 2.5em; 
+    height: 1.25em; 
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $blue-fifth;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1em;
+    width: 1em;
+    left: 0.125em;
+    bottom: 0.125em;
+    background-color: $color-secondary;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: $blue-second;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(1.2em);
+    -ms-transform: translateX(1.2em);
+    transform: translateX(1.2em);
+}
+
+.slider.round {
+    border-radius: 2.25em; 
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.clear-choice-div {
+/*     margin-top: auto;
+ */    padding-bottom: 20%;
+}
+
+.marker-button-holder {
+    padding-left: 1%;
+
+    .set-marker-button {
+        width: 100%;
+        height: 100%;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        font-size: 1.5rem;
+        color: $color-primary;
+        border: 2px solid $color-primary;
+        /* color: $blue-second;
+        border: 2px solid $blue-second; */
+        &.active-marker-placed {
+            color: $blue-second;
+            border: 2px solid $blue-second;
+            background-color: $blue-fifth;
+        }
+    }
+}
+
+.radius-interface {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+    width: 100%;
+    margin-top: auto;
+
+    input {
+        width: 65%;
+        height: 5%;
+        text-align: center;
+        padding: 5%;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+    input[type='text']:focus::placeholder {
+        color: transparent;
+    }
+}

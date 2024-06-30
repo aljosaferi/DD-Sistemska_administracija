@@ -91,3 +91,7 @@ textarea {
 .leaflet-pane {
     z-index: 1 !important;
   }
+
+.leaflet-top.leaflet-left {
+    z-index: 2 !important;
+}

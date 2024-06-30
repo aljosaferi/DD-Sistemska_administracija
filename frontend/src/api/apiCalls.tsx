@@ -12,14 +12,16 @@ export function postApiCall(url: string, data = {}) {
     return axios({
         url: url,
         method: 'POST',
-        data: data
+        data: data,
+        withCredentials: true
     }).then(res => res.data)
 }
 
 export function deleteApiCall(url: string) {
     return axios({
         url: url,
-        method: 'DELETE'
+        method: 'DELETE',
+        withCredentials: true
     }).then(res => res.data)
 }
 
@@ -27,6 +29,7 @@ export function putApiCall(url: string, data = {}) {
     return axios({
         url: url,
         method: 'PUT',
-        data: data
+        data: data,
+        withCredentials: true
     }).then(res => res.data)
 }
