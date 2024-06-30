@@ -92,7 +92,7 @@ module.exports = {
 			
             menu.save()
             .then(menu => {
-                return res.json(menu);
+                return res.status(201).json(menu);
             })
             .catch(err => {
                 return res.status(500).json({

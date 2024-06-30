@@ -15,6 +15,7 @@ export type User = {
     password?: string;
     profilePhoto: ProfilePhoto;
     userType: string;
+    pendingApproval: boolean;
     __v: number;
     id: string;
 }

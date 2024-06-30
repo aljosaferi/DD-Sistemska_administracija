@@ -5,11 +5,12 @@ import Button from '../Button/Button';
 
 interface DeletePromptProps {
     handleClose: () => void;
+    handleConfirm: () => void;
     heading: string;
     content: string;
 }
 
-function DeletePrompt({ handleClose, heading, content } :  DeletePromptProps) {
+function DeletePrompt({ handleClose, handleConfirm, heading, content } :  DeletePromptProps) {
 
     return (
         <div className={styles['container']}>
@@ -30,11 +31,11 @@ function DeletePrompt({ handleClose, heading, content } :  DeletePromptProps) {
                 {content}
             </div>
             <div className={styles['submit']}>
-                <Button type="primary" padding={'0.7rem'}>
+                <Button type="primary" padding={'0.7rem'} onClick={handleConfirm}>
                     Izbriši
                     <i className="fa-solid fa-trash-can"/>
                 </Button>
-                <Button type="tertiary" padding={'0.7rem'}>
+                <Button type="tertiary" padding={'0.7rem'} onClick={handleClose}>
                     Prekliči
                     <i className="fa-solid fa-xmark"/>
                 </Button>

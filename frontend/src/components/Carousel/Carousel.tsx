@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, } from 'react';
+import { useState, useEffect, useRef, useContext, } from 'react';
 import { motion, useInView, useAnimation, AnimatePresence } from 'framer-motion';
 
 import Reveal from '../Reveal/Reveal'
@@ -14,6 +14,7 @@ import {
 } from './CarouselArrowButtons'
 import useEmblaCarousel from 'embla-carousel-react'
 import Modal from '../Modal/Modal';
+import { UserContext } from '../../userContext';
 
 type PropType = {
   slides: React.ReactNode[];
@@ -21,6 +22,7 @@ type PropType = {
 }
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
+  const userContext = useContext(UserContext)
   const { slides, options } = props
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [isOpenAddNews, setIsOpenAddNews] = useState(false)
@@ -98,13 +100,15 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
         </Reveal>
-        <Reveal delay={0.3}>
-          <div className="embla__add__news">
-            <Button type='primary' padding="1rem" onClick={openAddNews}>
-              Dodaj novico
-            </Button>
-          </div>
-        </Reveal>
+        {userContext.user?.userType === "admin" &&
+          <Reveal delay={0.3}>
+            <div className="embla__add__news">
+              <Button type='primary' padding="1rem" onClick={openAddNews}>
+                Dodaj novico
+              </Button>
+            </div>
+          </Reveal>
+        }
       </div>
       
       <AnimatePresence>

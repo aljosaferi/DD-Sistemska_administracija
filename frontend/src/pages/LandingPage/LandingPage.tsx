@@ -10,9 +10,36 @@ import NewsCard from '../../components/NewsCard/NewsCard';
 const OPTIONS: EmblaOptionsType = { align: 'start', slidesToScroll: 'auto' }
 
 function LandingPage() {
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    
+  useEffect(() => {
+    const handleWheel = (e) => {
+      e.preventDefault();
+
+      let scrollAmount = 0;
+      let slideTimer = setInterval(function(){
+          if(e.deltaY < 0) {
+              window.scrollBy(0, -7);
+          } else {
+              window.scrollBy(0, 7);
+          }
+          scrollAmount += 7;
+          if(scrollAmount >= Math.abs(e.deltaY)){
+              window.clearInterval(slideTimer);
+          }
+      }, 1);
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
 
 
     return (

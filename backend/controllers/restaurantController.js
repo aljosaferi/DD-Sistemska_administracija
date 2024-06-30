@@ -70,11 +70,26 @@ module.exports = {
          }
         RestaurantModel.find(filter)
         .populate('tags')
+        .populate('photo')
         .then(restaurants => {
             return res.json(restaurants);
         }).catch(err => {
             return res.status(500).json({
                 message: 'Error when getting restaurants.',
+                error: err
+            });
+        });
+    },
+
+    listFromOwner: function (req, res) {
+        RestaurantModel.find({ owner: req.params.userId })
+        .populate('tags')
+        .populate('photo')
+        .then(restaurants => {
+            return res.json(restaurants);
+        }).catch(err => {
+            return res.status(500).json({
+                message: 'Error when getting restaurants of this user.',
                 error: err
             });
         });
@@ -89,6 +104,7 @@ module.exports = {
         RestaurantModel.findOne({_id: id})
         .populate('menus')
         .populate('ratings')
+        .populate('photo')
         .then(restaurant => {
             if (!restaurant) {
                 return res.status(404).json({
@@ -120,21 +136,30 @@ module.exports = {
             var data = await response.json()
             
             const restaurantNameWords = req.body.name.toLowerCase().split(' ');
-            var bestMatch = data.features[0];
-            var bestMatchScore = 0;
-
-            for(i in data.features) {
-                if (!data.features[i].properties.name) continue;
-                var featureName = data.features[i].properties.name.toLowerCase();
-                var score = restaurantNameWords.reduce((acc, word) => acc + (featureName.includes(word) ? 1 : 0), 0);
-                if(score > bestMatchScore) {
-                    bestMatch = data.features[i];
-                    bestMatchScore = score;
+            if (!data.features || data.features.length == 0) {
+                mappedCoordinates = req.body.location.coordinates.map(Number);
+                coords = {
+                    type: 'Point',
+                    coordinates: mappedCoordinates
                 }
             }
-            coords = bestMatch.geometry
+            else {
+                var bestMatch = data.features[0];
+                var bestMatchScore = 0;
+
+                for(let i in data.features) {
+                    if (!data.features[i].properties.name) continue;
+                    var featureName = data.features[i].properties.name.toLowerCase();
+                    var score = restaurantNameWords.reduce((acc, word) => acc + (featureName.includes(word) ? 1 : 0), 0);
+                    if(score > bestMatchScore) {
+                        bestMatch = data.features[i];
+                        bestMatchScore = score;
+                    }
+                }
+                coords = bestMatch.geometry;
+            }
         } else {
-            coords = req.body.coordinates;
+            coords = req.body.location.coordinates.map(Number);
         }
 
         var ownerId = req.user._id;
@@ -158,6 +183,7 @@ module.exports = {
             return res.status(201).json(restaurant)
         })
         .catch(err => {
+            console.log("ERROR" + err);
             return res.status(500).json({
                 message: 'Error when creating restaurant',
                 error: err
