@@ -333,6 +333,46 @@ module.exports = {
         });
     },
 
+    updateMealPrice: function (req, res) {
+        var id = req.params.id;
+        var newMealPrice = parseFloat(req.query.mealPrice);
+
+        /* var ownerId = req.user._id;
+        if(req.body.owner && req.user.userType === 'admin') {
+            ownerId = req.body.owner;
+        } */
+
+        if (isNaN(newMealPrice)) {
+            return res.status(400).json({ message: 'Invalid mealPrice value' });
+        }
+
+        RestaurantModel.findOne({ _id: id })
+        .then(restaurant => {
+            if (!restaurant) {
+                return res.status(404).json({ message: 'No such restaurant' });
+            }
+
+            restaurant.mealPrice = newMealPrice;
+
+            restaurant.save()
+            .then(restaurant => {
+                return res.json(restaurant);
+            })
+            .catch(err => {
+                return res.status(500).json({
+                    message: 'Error when updating mealPrice.',
+                    error: err
+                });
+            });
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message: 'Error when getting restaurant',
+                error: err
+            });
+        });
+    },
+
     /**
      * restaurantController.remove()
      */

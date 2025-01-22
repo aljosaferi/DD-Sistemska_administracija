@@ -38,6 +38,7 @@ router.post('/:id/rate', JWTAuthenticate, restaurantController.rate);
 
 //PUT
 router.put('/:id/lastCapacity', /* JWTAuthenticate, isRestaurantOwner, checkOwnership, */ restaurantController.updateLastCapacity);
+router.put('/:id/mealPrice', /* JWTAuthenticate, isRestaurantOwner, checkOwnership, */ restaurantController.updateMealPrice);
 router.put('/:id', JWTAuthenticate, isRestaurantOwner, checkOwnership, restaurantController.update);
 
 
