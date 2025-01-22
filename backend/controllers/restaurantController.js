@@ -289,6 +289,50 @@ module.exports = {
         });
     },
 
+    updateLastCapacity: function (req, res) {
+        var id = req.params.id;
+        var newLastCapacity = parseInt(req.query.lastCapacity, 10);
+
+        /* var ownerId = req.user._id;
+        if(req.body.owner && req.user.userType === 'admin') {
+            ownerId = req.body.owner;
+        } */
+
+        if (isNaN(newLastCapacity)) {
+            return res.status(400).json({ message: 'Invalid lastCapacity value' });
+        }
+
+        RestaurantModel.findOne({ _id: id })
+        .then(restaurant => {
+            if (!restaurant) {
+                return res.status(404).json({ message: 'No such restaurant' });
+            }
+
+            if (newLastCapacity > restaurant.maxCapacity) {
+                newLastCapacity = restaurant.maxCapacity;
+            }
+
+            restaurant.lastCapacity = newLastCapacity;
+
+            restaurant.save()
+            .then(restaurant => {
+                return res.json(restaurant);
+            })
+            .catch(err => {
+                return res.status(500).json({
+                    message: 'Error when updating lastCapacity.',
+                    error: err
+                });
+            });
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message: 'Error when getting restaurant',
+                error: err
+            });
+        });
+    },
+
     /**
      * restaurantController.remove()
      */
