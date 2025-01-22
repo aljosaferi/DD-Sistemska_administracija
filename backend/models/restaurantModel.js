@@ -39,6 +39,8 @@ var restaurantSchema = new Schema({
         type: {type: String, required: true, default: "Point"},
         coordinates: {type: [Number], required: true },
     },
+	'lastCapacity' : { type: Number, required: true, default: -1 },
+	'maxCapacity' : { type: Number, required: true },
 	'ratings': {
 		type: [{
         	user: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },

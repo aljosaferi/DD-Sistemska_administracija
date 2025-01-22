@@ -53,6 +53,8 @@ interface Restaurant {
     photo: Photo;
     mealPrice: number;
     mealSurcharge: number;
+    lastCapacity: number;
+    maxCapacity: number;
     workingHours: WorkingHours[];
     menus: Menu[];
     tags: Tag[];
