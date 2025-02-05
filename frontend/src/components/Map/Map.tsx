@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
+//comment for pushing to dev bracnh (start server), change random shit in here and commit and push to develop to restart server
 
 function Map() {
   
